@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f9fc">
+  <!-- GENERATED:METADATA:START -->
+<title>Less Supervision, Better Generalization: Weakly Supervised Fake Region Localization in Diffusion-Edited Images</title>
+<meta name="description" content="ReGFLoW learns diffusion-edited fake region localization from image-level real/fake labels, using reconstruction-guided patch scoring and artifact-centric multiple instance learning.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Less Supervision, Better Generalization: Weakly Supervised Fake Region Localization in Diffusion-Edited Images">
+<meta property="og:description" content="ReGFLoW learns diffusion-edited fake region localization from image-level real/fake labels, using reconstruction-guided patch scoring and artifact-centric multiple instance learning.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="citation_title" content="Less Supervision, Better Generalization: Weakly Supervised Fake Region Localization in Diffusion-Edited Images">
+<meta name="citation_author" content="Junhee Lee">
+<meta name="citation_author" content="Donghyeon Jeon">
+<meta name="citation_author" content="Taeoh Kim">
+<meta name="citation_author" content="Beomyoung Kim">
+<meta name="citation_author" content="MyeongAh Cho">
+<!-- GENERATED:METADATA:END -->
+  <link rel="icon" href="./static/images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <script src="./static/js/index.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="reading-progress" aria-hidden="true"><span id="reading-progress"></span></div>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="Less Supervision, Better Generalization home"><span class="brand-mark" aria-hidden="true"></span><span class="brand-title">Less Supervision, Better Generalization</span></a>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="nav-links" hidden>Menu <span aria-hidden="true">☰</span></button>
+      <div class="nav-links" id="nav-links">
+        <a href="#question">The question</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#qualitative">Visual results</a>
+        <a href="#citation">Cite</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="paper-title">
+      <div class="container hero-inner">
+        <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Rethinking supervision for AI image forensics</p>
+        <!-- GENERATED:TITLE:START -->
+<h1 id="paper-title"><span class="hero-main">Less Supervision,<br><span class="gradient-text">Better Generalization</span><span class="sr-only">:</span></span><span class="hero-subtitle">Weakly Supervised Fake Region Localization<br class="desktop-break"> in Diffusion-Edited Images</span></h1>
+<!-- GENERATED:TITLE:END -->
+        <!-- GENERATED:AUTHORS:START -->
+<div class="authors"><span class="author"><a href="mailto:jhlee39@khu.ac.kr">Junhee Lee</a><sup>1</sup></span>
+<span class="author"><a href="mailto:amuse_dh@khu.ac.kr">Donghyeon Jeon</a><sup>1</sup></span>
+<span class="author"><a href="mailto:taeoh.kim@navercorp.com">Taeoh Kim</a><sup>2</sup></span>
+<span class="author"><a href="mailto:beomyoung.kim@kaist.ac.kr">Beomyoung Kim</a><sup>2</sup></span>
+<span class="author"><a href="mailto:maycho@khu.ac.kr">MyeongAh Cho</a><sup>1,*</sup></span></div><div class="affiliations"><span><sup>1</sup>Kyung Hee University</span><span><sup>2</sup>NAVER Cloud</span></div><p class="author-note">* Corresponding author</p>
+<!-- GENERATED:AUTHORS:END -->
+        <!-- GENERATED:VENUE:START -->
+<!-- No venue badge until the publication status is confirmed. -->
+<!-- GENERATED:VENUE:END -->
+        <!-- GENERATED:LINKS:START -->
+<div class="resource-links"><a class="button button-primary" href="./static/paper/ReGFLoW.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 2h8l5 5v15H5z"/><path d="M13 2v6h5M8 12h7M8 16h7"/></svg>Paper</a><a class="button" href="https://arxiv.org/abs/2609.36882" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7M21 3 10 14M10 3H3v18h18v-7"/></svg>arXiv</a><a class="button" href="https://github.com/VisualScienceLab-KHU/LSBG" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 5-6 7 6 7M16 5l6 7-6 7M14 3l-4 18"/></svg>Code</a></div>
+<!-- GENERATED:LINKS:END -->
+        <p class="hero-tagline">What matters is not just <em>how much</em> we supervise,<br class="desktop-break"> but <strong>what our supervision tells the model.</strong></p>
+        <a class="story-link" href="#context">Start with the question <span aria-hidden="true">↓</span></a>
+      </div>
+    </section>
+
+    <section class="section context-section" id="context" aria-labelledby="context-title">
+      <div class="container">
+        <div class="section-heading compact"><p class="eyebrow">01 / The changing annotation landscape</p><h2 id="context-title">More labels used to mean more effort.<br>What happens when that changes?</h2></div>
+        <!-- The broad auto-annotation framing below follows the authors' requested project-page narrative, not a measured finding of this paper. -->
+        <div class="context-grid">
+          <article class="context-card"><span class="step-label">The conventional choice</span><h3>Annotate in detail.</h3><p>Dense annotations provide explicit spatial targets for localization. But as data grows, producing these annotations becomes costly and difficult to scale.</p><span class="card-bottom">Detailed labels · substantial annotation effort</span></article>
+          <article class="context-card"><span class="step-label">The practical alternative</span><h3>Learn with less.</h3><p>Weakly supervised learning reduces this burden by learning spatial predictions from coarser labels, such as one real/fake label for an entire image.</p><span class="card-bottom">Coarse labels · more accessible training data</span></article>
+          <article class="context-card context-card-accent"><span class="step-label">The new question</span><h3>What if labels are automated?</h3><p>MLLMs, VLMs, and other AI tools are changing how annotations can be produced. Even when dense labels become easier to obtain, are they necessarily the right training targets?</p><span class="card-bottom">Label availability ≠ label suitability</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section question-section" id="question" aria-labelledby="question-title">
+      <div class="container">
+        <div class="question-panel">
+          <span class="question-watermark" aria-hidden="true">?</span>
+          <p class="eyebrow">The central question</p>
+          <h2 id="question-title">If dense supervision is easy to obtain,<br><span>do we still need weak supervision?</span></h2>
+          <p class="question-sub">Should we always prefer full supervision in the age of automatic annotation?</p>
+          <div class="answer-emphasis"><span class="qa-mark">A.</span> <strong>Not necessarily.</strong> More detailed labels can still teach the wrong thing.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section insight-section" id="insight" aria-labelledby="insight-title">
+      <div class="container">
+        <div class="insight-panel">
+          <div class="insight-copy">
+            <p class="eyebrow">02 / The answer starts with the labels</p>
+            <h2 id="insight-title">More supervision is not<br><span class="gradient-text">always better supervision.</span></h2>
+            <p class="lead">In diffusion-based image editing, artifacts can extend beyond the intended edit area, meaning dense supervision can guide the model with misleading signals and hurt generalization. We introduce ReGFLoW, the first weakly supervised framework for diffusion-edited fake region localization, using only image-level real/fake labels while achieving stronger performance across unseen generators.</p>
+            <p class="claim-scope">ReGFLoW is introduced as the first weakly supervised framework for diffusion-edited fake region localization in generic visual content. The strongest gains appear when evaluation includes both partially edited and fully synthetic images, and in cross-dataset transfer.</p>
+          </div>
+          <figure class="paper-figure inset-figure" id="figure-2">
+            <a class="figure-link" href="./static/images/fig2-mask-incompleteness.png" data-lightbox data-caption="Figure 2 · The intended edit region is not a complete map of diffusion artifacts.">
+              <img src="./static/images/fig2-mask-incompleteness.webp" width="1462" height="428" alt="Figure 2: guidance mask, VAE encoding and decoding, and boundary blending can produce traces outside the intended edit region." loading="lazy" decoding="async">
+              <span class="zoom-hint">View full resolution <span aria-hidden="true">↗</span></span>
+            </a>
+            <figcaption><span class="fig-label">Figure 2</span> <strong>The intended edit region is not the full extent of diffusion artifacts.</strong> Latent processing and blending can introduce weak global or boundary-localized traces beyond the guidance mask. This is a conceptual illustration, not an exhaustive artifact ground-truth map. <a class="source-link" href="./static/paper/ReGFLoW.pdf#page=4" target="_blank" rel="noopener">Paper, p. 4 ↗</a></figcaption>
+          </figure>
+          <div class="mechanism-grid" aria-label="Why mask supervision can be misleading">
+            <div><span class="mini-label">What the mask describes</span><p>The region we <strong>intended to edit.</strong></p></div>
+            <div><span class="mini-label">What the image can contain</span><p>Diffusion traces <strong>inside and outside that region.</strong></p></div>
+            <div><span class="mini-label">What dense labels can enforce</span><p>Out-of-mask artifacts are <strong>trained as authentic.</strong></p></div>
+          </div>
+          <p class="signature-line">Sometimes, less supervision can lead to <strong>better generalization.</strong></p>
+        </div>
+        <p class="context-note">Automatic annotation can change the cost of obtaining labels. It does not, by itself, resolve a mismatch between what a label represents and what the model needs to learn.</p>
+      </div>
+    </section>
+
+    <section class="section section-tint" id="formulation" aria-labelledby="formulation-title">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">03 / Why a new formulation is needed</p><h2 id="formulation-title">Less supervision.<br>Not just the same assumptions.</h2><p>Removing pixel masks is not enough. Diffusion artifacts may be non-semantic, weakly bounded, and spatially diffuse—so object-based expansion and boundary-aligned pseudo-masks are not reliable defaults.</p></div>
+        <div class="novelty-banner"><span class="novelty-number" aria-hidden="true">01</span><div><p class="eyebrow">A first step for this task</p><h3>The first weakly supervised framework for diffusion-edited fake region localization in generic visual content.</h3><p>ReGFLoW learns from image-level real/fake labels and asks <em>where the artifact evidence is</em>, rather than assuming an object-shaped target. To the best of our knowledge; prior weakly supervised work addresses conventional manipulations or face-centric diffusion edits.</p></div></div>
+        <figure class="paper-figure" id="figure-1"><a class="figure-link" href="./static/images/fig1-task-motivation.png" data-lightbox data-caption="Figure 1 · From semantic-affinity expansion to reconstruction-guided artifact localization."><img src="./static/images/fig1-task-motivation.webp" width="1821" height="635" alt="Figure 1: conventional segmentation follows object boundaries, diffusion edits may not, and ReGFLoW instead uses a diffusion prior and artifact-centric MIL." loading="lazy" decoding="async"><span class="zoom-hint">View full resolution ↗</span></a><figcaption><span class="fig-label">Figure 1</span> <strong>A different task calls for different spatial guidance.</strong> Conventional localization targets often follow objects or boundaries. ReGFLoW instead uses reconstruction-guided multiple instance learning to identify diffusion artifact evidence. <a class="source-link" href="./static/paper/ReGFLoW.pdf#page=2" target="_blank" rel="noopener">Paper, p. 2 ↗</a></figcaption></figure>
+        <div class="contrast-strip"><span>From <s>semantic similarity as the default prior</s></span><span aria-hidden="true">→</span><strong>To reconstruction-guided artifact evidence</strong></div>
+      </div>
+    </section>
+
+    <section class="section" id="method" aria-labelledby="method-title">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">04 / The framework</p><h2 id="method-title">Meet <span class="gradient-text">ReGFLoW.</span></h2><p class="acronym"><strong>Re</strong>construction-<strong>G</strong>uided <strong>F</strong>ake <strong>Lo</strong>calization under <strong>W</strong>eak supervision</p><p>ReGFLoW uses diffusion reconstruction cues to guide localization in both feature and score spaces, then learns artifact evidence with an artifact-centric MIL objective.</p></div>
+        <figure class="paper-figure framework-figure" id="figure-4"><a class="figure-link" href="./static/images/fig4-framework.png" data-lightbox data-caption="Figure 4 · The complete ReGFLoW framework."><img src="./static/images/fig4-framework.webp" width="1461" height="883" alt="Figure 4: frozen VAE reconstruction, global and local encoders, gated feature fusion, a reconstruction logit bias, artifact-centric MIL, and a localization-guided classifier." loading="lazy" decoding="async"><span class="zoom-hint">Explore the framework ↗</span></a><figcaption><span class="fig-label">Figure 4</span> <strong>Dense spatial guidance without dense target masks.</strong> Reconstruction cues enter both the feature and score spaces. Artifact-centric MIL trains the patch map, which supports fake-region localization and image-level classification. <a class="source-link" href="./static/paper/ReGFLoW.pdf#page=5" target="_blank" rel="noopener">Paper, pp. 5–7 ↗</a></figcaption></figure>
+        <div class="method-grid">
+          <article class="method-card recon"><span class="step-index">1</span><h3>Reconstruction prior</h3><p>A frozen diffusion VAE reconstructs the image, and the reconstruction error becomes a dense spatial prior for where artifact evidence may lie.</p><div class="formula" aria-label="reconstruction residual">r = |I - D(E(I))|</div></article>
+          <article class="method-card fusion"><span class="step-index">2</span><h3>Feature and score guidance</h3><p>The reconstruction prior is fused with local features and also biases the patch logits, so the model is nudged toward transferable artifact cues rather than object boundaries.</p><div class="formula">ᵝ = F<sup>loc</sup> + tanh(γ) · Δ</div></article>
+          <article class="method-card mil"><span class="step-index">3</span><h3>Artifact-centric MIL</h3><p>Weak supervision is applied through a MIL objective that highlights suspicious patches and ranks fake-image evidence above real-image evidence.</p><div class="formula">ŝ<sub>fake</sub> &gt; ŝ<sub>real</sub><span class="formula-note">See the paper for the full objective and calibration details.</span></div></article>
+        </div>
+        <details class="detail-block"><summary>Where to look for more details <span aria-hidden="true">+</span></summary><div class="detail-body"><p>The main paper introduces the framework at a high level. The appendix provides additional details on mask availability in real-world diffusion editing, auxiliary losses and inference calibration, implementation details, additional qualitative results, limitations, and related work.</p><p class="small-note">For full equations, training details, and calibrated inference, please refer to the paper and appendix.</p></div></details>
+        <details class="detail-block abstract-block" id="abstract"><summary>Read the abstract <span aria-hidden="true">+</span></summary><div class="detail-body"><p>Localizing AI-edited regions is essential for interpretable forensic analysis, but remains challenging due to subtle and spatially distributed artifacts that are misaligned with semantic or object boundaries. Existing approaches rely on pixel-level supervision from controlled editing pipelines, which is difficult to scale and can introduce misleading signals: artifacts frequently extend beyond annotated regions, while out-of-mask pixels are treated as authentic. This limits models’ ability to capture transferable evidence and generalize across generators and datasets. To address these issues, we propose ReGFLoW, a Reconstruction-Guided Fake Localization framework under Weak supervision, which is the first weakly supervised approach for diffusion-edited fake region localization. ReGFLoW requires only real/fake labels at the image-level and uses diffusion reconstruction errors as dense spatial guidance to inject them into both feature and score spaces. Furthermore, by artifact-centric multiple instance learning, ReGFLoW utilizes localized diffusion evidence without relying on semantic-affinity or boundary-based pseudo-mask priors. Extensive experiments show competitive cross-generator localization, while ReGFLoW outperforms all evaluated fully supervised baselines when evaluation includes both partially edited and fully synthetic images and in cross-dataset tests, without target-domain adaptation.</p><a class="source-link" href="./static/paper/ReGFLoW.pdf#page=1" target="_blank" rel="noopener">Original abstract ↗</a></div></details>
+      </div>
+    </section>
+
+    <section class="section section-tint" id="results" aria-labelledby="results-title">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">05 / Evidence, not just an intuition</p><h2 id="results-title">Less supervision.<br>Better generalization where it matters.</h2><p>Train on SD1.5 and evaluate on unseen generators and datasets. ReGFLoW never uses pixel-level training masks or target-domain adaptation.</p></div>
+        <div class="metrics-grid">
+          <a class="metric-card" href="#table-2"><span class="metric-kicker">P+F · OOD localization F1</span><span class="metric-value">31.3<span class="metric-unit">%</span></span><span class="metric-detail"><strong>+2.2 points</strong> over MaskCLIP (29.1)</span><span class="metric-source">Table 2 ↗</span></a>
+          <a class="metric-card" href="#table-3"><span class="metric-kicker">COCO-GLIDE · pixel F1</span><span class="metric-value">42.01<span class="metric-unit">%</span></span><span class="metric-detail"><strong>+16.84 points</strong> over TruFor (25.17)</span><span class="metric-source">Table 3 ↗</span></a>
+          <a class="metric-card" href="#table-4"><span class="metric-kicker">Image-level · OOD detection F1</span><span class="metric-value">76.22<span class="metric-unit">%</span></span><span class="metric-detail">Best among the evaluated methods</span><span class="metric-source">Table 4 ↗</span></a>
+        </div>
+        <div class="protocol-note"><strong>Read the settings.</strong> <span><b>P</b>: partially edited images only.</span><span><b>P+F</b>: partially edited + fully synthetic images.</span><span><b>OOD Avg.</b>: average over SD2.1, SDXL, SD3, and Flux.1.</span></div>
+
+        <article class="result-block" id="table-1" aria-labelledby="table-1-title">
+          <div class="result-heading"><div><p class="eyebrow">Table 1 / OpenSDID · P setting</p><h3 id="table-1-title">Competitive cross-generator localization.</h3></div><span class="setting-badge">Pixel-level F1 / IoU ↑</span></div>
+          <p>ReGFLoW achieves <strong>38.6 OOD average F1</strong>, outperforming the adapted weakly supervised baselines and several fully supervised methods. On Flux.1 it obtains <strong>29.2 F1</strong>, compared with MaskCLIP’s 18.4. MaskCLIP retains the best P-setting OOD average F1 (41.7); ReGFLoW does not lead every generator or metric.</p>
+          <!-- GENERATED:TABLE_1:START -->
+<div class="table-shell" role="region" tabindex="0" aria-label="Table 1. Scroll horizontally to see every column.">
+<table class="results-table table-wide" data-table="1" data-source-page="7">
+<caption>Table 1. Partially edited images (P): pixel-level F1 and IoU</caption>
+<thead><tr><th class="method-col" scope="col" rowspan="3">Method</th><th colspan="2" scope="colgroup">In-domain</th><th colspan="8" scope="colgroup" class="group-start">Cross-domain</th><th colspan="4" scope="colgroup" class="group-start">Average</th></tr><tr><th scope="colgroup" colspan="2" class="">SD1.5</th><th scope="colgroup" colspan="2" class="group-start">SD2.1</th><th scope="colgroup" colspan="2" class="">SDXL</th><th scope="colgroup" colspan="2" class="">SD3</th><th scope="colgroup" colspan="2" class="">Flux.1</th><th scope="colgroup" colspan="2" class="group-start average-col">Avg.</th><th scope="colgroup" colspan="2" class="average-col ood-col">OOD Avg.</th></tr><tr><th scope="col" class="">F1</th><th scope="col" class="">IoU</th><th scope="col" class="group-start">F1</th><th scope="col" class="">IoU</th><th scope="col" class="">F1</th><th scope="col" class="">IoU</th><th scope="col" class="">F1</th><th scope="col" class="">IoU</th><th scope="col" class="">F1</th><th scope="col" class="">IoU</th><th scope="col" class="group-start average-col">F1</th><th scope="col" class="average-col">IoU</th><th scope="col" class="average-col ood-col">F1</th><th scope="col" class="average-col ood-col">IoU</th></tr></thead>
+<tbody>
+<tr class="group-row"><th colspan="15">Fully supervised methods</th></tr>
+<tr class="" data-method="PSCC-Net"><th scope="row" class="method-col">PSCC-Net<a class="method-ref" href="./static/paper/ReGFLoW.pdf#page=13" target="_blank" rel="noopener" aria-label="Reference 52 in the paper">[52]</a></th>
+<td class="">64.2</td>
+<td class="">54.7</td>
+<td class="group-start">44.8</td>
+<td class="">36.7</td>
+<td class="">26.1</td>
+<td class="">19.7</td>
+<td class="">37.3</td>
+<td class="">29.3</td>
+<td class="">11.6</td>
+<td class="">8.2</td>
+<td class="group-start average-col">36.8</td>
+<td class="average-col">29.7</td>
+<td class="average-col ood-col">29.9</td>
+<td class="average-col ood-col">23.5</td>
+</tr>
+<tr class="" data-method="TruFor"><th scope="row" class="method-col">TruFor<a class="method-ref" href="./static/paper/ReGFLoW.pdf#page=12" target="_blank" rel="noopener" aria-label="Reference 19 in the paper">[19]</a></th>
+<td class="">71.0</td>
+<td class="">63.4</td>
+<td class="group-start">61.9</td>
+<td class="">54.7</td>
+<td class="">31.9</td>
+<td class="">26.5</td>
+<td class="">38.5</td>
+<td class="">32.2</td>
+<td class="">9.7</td>
+<td class="">7.6</td>
+<td class="group-start average-col">42.6</td>
+<td class="average-col">36.9</td>
+<td class="average-col ood-col">35.5</td>
+<td class="average-col ood-col">30.3</td>
+</tr>
+<tr class="" data-method="IML-ViT"><th scope="row" class="method-col">IML-ViT<a class="method-ref" href="./static/paper/ReGFLoW.pdf#page=11" target="_blank" rel="noopener" aria-label="Reference 18 in the paper">[18]</a></th>
+<td class="">73.6</td>
+<td class="">66.5</td>
+<td class="group-start">50.6</td>
+<td class="">44.8</td>
+<td class="">26.0</td>
+<td class="">21.5</td>
+<td class="">28.3</td>
+<td class="">23.6</td>
+<td class="">7.9</td>
+<td class="">6.1</td>
+<td class="group-start average-col">37.3</td>
+<td class="average-col">32.5</td>
+<td class="average-col ood-col">28.2</td>
+<td class="average-col ood-col">24.0</td>
+</tr>
+<tr class="" data-method="MaskCLIP"><th scope="row" class="method-col">MaskCLIP<a class="method-ref" href="./static/paper/ReGFLoW.pdf#page=11" target="_blank" rel="noopener" aria-label="Reference 9 in the paper">[9]</a></th>
+<td class=""><strong>75.8</strong></td>
+<td class=""><strong>68.6</strong></td>
+<td class="group-start"><strong>63.2</strong></td>
+<td class=""><strong>56.1</strong></td>
+<td class=""><strong>35.2</strong></td>
+<td class=""><strong>29.5</strong></td>
+<td class=""><strong>49.8</strong></td>
+<td class=""><strong>42.7</strong></td>
+<td class="">18.4</td>
+<td class="">14.8</td>
+<td class="group-start average-col"><strong>48.5</strong></td>
+<td class="average-col"><strong>42.4</strong></td>
+<td class="average-col ood-col"><strong>41.7</strong></td>
+<td class="average-col ood-col"><strong>35.8</strong></td>
+</tr>
+<tr class="group-row"><th colspan="15">Weakly supervised methods</th></tr>
+<tr class="" data-method="WSCL"><th scope="row" class="method-col">WSCL<a class="method-ref" href="./static/paper/ReGFLoW.pdf#page=12" target="_blank" rel="noopener" aria-label="Reference 21 in the paper">[21]</a></th>
+<td class="">25.6</td>
+<td class="">16.7</td>
+<td class="group-start">25.9</td>
+<td class="">17.0</td>
+<td class="">26.0</td>
+<td class="">17.0</td>
+<td class="">25.4</td>
+<td class="">16.5</td>
+<td class="">25.3</td>
+<td class="">16.4</td>
+<td class="group-start average-col">25.6</td>
+<td class="average-col">16.7</td>
+<td class="average-col ood-col">25.7</td>
+<td class="average-col ood-col">16.7</td>
+</tr>
+<tr class="" data-method="DOLOS"><th scope="row" class="method-col">DOLOS<a class="method-ref" href="./static/paper/ReGFLoW.pdf#page=12" target="_blank" rel="noopener" aria-label="Reference 22 in the paper">[22]</a></th>
+<td class="">21.5</td>
+<td class="">13.4</td>
+<td class="group-start">19.1</td>
+<td class="">11.9</td>
+<td class="">19.8</td>
+<td class="">12.2</td>
+<td class="">20.3</td>
+<td class="">12.5</td>
+<td class="">19.2</td>
+<td class="">12.0</td>
+<td class="group-start average-col">20.0</td>
+<td class="average-col">12.4</td>
+<td class="average-col ood-col">19.6</td>
+<td class="average-col ood-col">12.2</td>
+</tr>
+<tr class="" data-method="BoxPromptIML"><th scope="row" class="method-col">BoxPromptIML<a class="method-ref" href="./static/paper/ReGFLoW.pdf#page=13" target="_blank" rel="noopener" aria-label="Reference 44 in the paper">[44]</a></th>
+<td class="">11.5</td>
+<td class="">7.0</td>
+<td class="group-start">10.9</td>
+<td class="">6.5</td>
+<td class="">10.9</td>
+<td class="">6.6</td>
+<td class="">13.8</td>
+<td class="">8.4</td>
+<td class="">10.3</td>
+<td class="">6.2</td>
+<td class="group-start average-col">11.5</td>
+<td class="average-col">6.9</td>
+<td class="average-col ood-col">11.5</td>
+<td class="average-col ood-col">6.9</td>
+</tr>
+<tr class="ours-row" data-method="ReGFLoW"><th scope="row" class="method-col">ReGFLoW<span class="ours-tag">(Ours)</span></th>
+<td class="">49.3</td>
+<td class="">36.9</td>
+<td class="group-start">46.3</td>
+<td class="">33.8</td>
+<td class="">34.9</td>
+<td class="">23.6</td>
+<td class="">43.9</td>
+<td class="">30.9</td>
+<td class=""><strong>29.2</strong></td>
+<td class=""><strong>19.0</strong></td>
+<td class="group-start average-col">40.7</td>
+<td class="average-col">28.8</td>
+<td class="average-col ood-col">38.6</td>
+<td class="average-col ood-col">26.8</td>
+</tr>
+</tbody></table></div>
+<!-- GENERATED:TABLE_1:END -->
+          <div class="table-footer"><span>Shaded row: ReGFLoW. Bold: best in each numeric column across all displayed methods. All values are as reported.</span><a href="./static/paper/ReGFLoW.pdf#page=7" target="_blank" rel="noopener">Paper Table 1 ↗</a></div>
+        </article>
+
+        <article class="result-block result-block-featured" id="table-2" aria-labelledby="table-2-title">
+          <div class="result-heading"><div><p class="eyebrow">Table 2 / OpenSDID · P+F setting</p><h3 id="table-2-title">The advantage grows beyond partial edits.</h3></div><span class="setting-badge">Pixel-level F1 ↑</span></div>
+          <p>When both training and evaluation include partially edited and fully synthetic fake images, ReGFLoW achieves the <strong>highest OOD average F1: 31.3</strong>. It exceeds all evaluated fully supervised baselines in OOD average, despite using no pixel-level labels. This is an OOD result, not a claim of the best in-domain or overall average score.</p>
+          <!-- GENERATED:TABLE_2:START -->
+<div class="table-shell" role="region" tabindex="0" aria-label="Table 2. Scroll horizontally to see every column.">
+<table class="results-table table-mid" data-table="2" data-source-page="8">
+<caption>Table 2. Partially edited + fully synthetic images (P+F): pixel-level F1</caption>
+<thead><tr><th class="method-col" scope="col" rowspan="2">Method</th><th colspan="1" scope="colgroup">In-domain</th><th colspan="4" scope="colgroup" class="group-start">Cross-domain</th><th colspan="2" scope="colgroup" class="group-start">Average</th></tr><tr><th scope="col" colspan="1" class="">SD1.5</th><th scope="col" colspan="1" class="group-start">SD2.1</th><th scope="col" colspan="1" class="">SDXL</th><th scope="col" colspan="1" class="">SD3</th><th scope="col" colspan="1" class="">Flux.1</th><th scope="col" colspan="1" class="group-start average-col">Avg.</th><th scope="col" colspan="1" class="average-col ood-col">OOD Avg.</th></tr></thead>
+<tbody>
+<tr class="group-row"><th colspan="8">Fully supervised methods</th></tr>
+<tr class="" data-method="TruFor"><th scope="row" class="method-col">TruFor<a class="method-ref" href="./static/paper/ReGFLoW.pdf#page=12" target="_blank" rel="noopener" aria-label="Reference 19 in the paper">[19]</a></th>
+<td class="">28.8</td>
+<td class="group-start">20.1</td>
+<td class="">15.9</td>
+<td class="">16.4</td>
+<td class="">8.4</td>
+<td class="group-start average-col">17.9</td>
+<td class="average-col ood-col">15.2</td>
+</tr>
+<tr class="" data-method="IML-ViT"><th scope="row" class="method-col">IML-ViT<a class="method-ref" href="./static/paper/ReGFLoW.pdf#page=11" target="_blank" rel="noopener" aria-label="Reference 18 in the paper">[18]</a></th>
+<td class="">30.2</td>
+<td class="group-start">24.7</td>
+<td class="">17.6</td>
+<td class="">13.5</td>
+<td class="">7.7</td>
+<td class="group-start average-col">18.7</td>
+<td class="average-col ood-col">15.9</td>
+</tr>
+<tr class="" data-method="MaskCLIP"><th scope="row" class="method-col">MaskCLIP<a class="method-ref" href="./static/paper/ReGFLoW.pdf#page=11" target="_blank" rel="noopener" aria-label="Reference 9 in the paper">[9]</a></th>
+<td class=""><strong>95.1</strong></td>
+<td class="group-start"><strong>73.2</strong></td>
+<td class="">20.8</td>
+<td class="">17.7</td>
+<td class="">4.8</td>
+<td class="group-start average-col"><strong>42.3</strong></td>
+<td class="average-col ood-col">29.1</td>
+</tr>
+<tr class="group-row"><th colspan="8">Weakly supervised methods</th></tr>
+<tr class="ours-row" data-method="ReGFLoW"><th scope="row" class="method-col">ReGFLoW<span class="ours-tag">(Ours)</span></th>
+<td class="">35.6</td>
+<td class="group-start">33.4</td>
+<td class=""><strong>30.1</strong></td>
+<td class=""><strong>32.2</strong></td>
+<td class=""><strong>29.4</strong></td>
+<td class="group-start average-col">32.2</td>
+<td class="average-col ood-col"><strong>31.3</strong></td>
+</tr>
+</tbody></table></div>
+<!-- GENERATED:TABLE_2:END -->
+          <div class="table-footer"><span>In-domain: SD1.5. Cross-domain: four unseen generators. Bold: column best.</span><a href="./static/paper/ReGFLoW.pdf#page=8" target="_blank" rel="noopener">Paper Table 2 ↗</a></div>
+        </article>
+
+        <article class="result-block" id="table-3" aria-labelledby="table-3-title">
+          <div class="result-heading"><div><p class="eyebrow">Table 3 / Cross-dataset evaluation</p><h3 id="table-3-title">Transfer across datasets. Without adaptation.</h3></div><span class="setting-badge">Pixel-level F1 ↑</span></div>
+          <p>ReGFLoW obtains the highest F1 in all three reported cross-dataset settings: <strong>COCO-GLIDE (P), DOLOS (P), and DOLOS (P+F)</strong>. These tests extend the evaluation beyond OpenSDID to different generation and content distributions.</p>
+          <!-- GENERATED:TABLE_3:START -->
+<div class="table-shell" role="region" tabindex="0" aria-label="Table 3. Scroll horizontally to see every column.">
+<table class="results-table table-three" data-table="3" data-source-page="8">
+<caption>Table 3. Cross-dataset localization: pixel-level F1</caption>
+<thead><tr><th scope="col" class="method-col" rowspan="2">Method</th><th scope="colgroup">COCO-GLIDE<a class="method-ref" href="./static/paper/ReGFLoW.pdf#page=13" target="_blank" rel="noopener" aria-label="Reference 53 in the paper">[53]</a></th><th scope="colgroup" colspan="2" class="group-start">DOLOS<a class="method-ref" href="./static/paper/ReGFLoW.pdf#page=12" target="_blank" rel="noopener" aria-label="Reference 22 in the paper">[22]</a></th></tr><tr><th scope="col">P</th><th scope="col" class="group-start">P</th><th scope="col">P+F</th></tr></thead>
+<tbody>
+<tr class="group-row"><th colspan="4">Fully supervised methods</th></tr>
+<tr class="" data-method="TruFor"><th scope="row" class="method-col">TruFor<a class="method-ref" href="./static/paper/ReGFLoW.pdf#page=12" target="_blank" rel="noopener" aria-label="Reference 19 in the paper">[19]</a></th>
+<td class="">25.17</td>
+<td class="group-start">8.21</td>
+<td class="">12.70</td>
+</tr>
+<tr class="" data-method="IML-ViT"><th scope="row" class="method-col">IML-ViT<a class="method-ref" href="./static/paper/ReGFLoW.pdf#page=11" target="_blank" rel="noopener" aria-label="Reference 18 in the paper">[18]</a></th>
+<td class="">15.23</td>
+<td class="group-start">1.16</td>
+<td class="">1.74</td>
+</tr>
+<tr class="" data-method="MaskCLIP"><th scope="row" class="method-col">MaskCLIP<a class="method-ref" href="./static/paper/ReGFLoW.pdf#page=11" target="_blank" rel="noopener" aria-label="Reference 9 in the paper">[9]</a></th>
+<td class="">8.34</td>
+<td class="group-start">13.35</td>
+<td class="">14.65</td>
+</tr>
+<tr class="group-row"><th colspan="4">Weakly supervised methods</th></tr>
+<tr class="ours-row" data-method="ReGFLoW"><th scope="row" class="method-col">ReGFLoW<span class="ours-tag">(Ours)</span></th>
+<td class=""><strong>42.01</strong></td>
+<td class="group-start"><strong>21.09</strong></td>
+<td class=""><strong>21.19</strong></td>
+</tr>
+</tbody></table></div>
+<!-- GENERATED:TABLE_3:END -->
+          <div class="table-footer"><span>Methods are rows; datasets and settings are columns. COCO-GLIDE reports P only; DOLOS reports P and P+F.</span><a href="./static/paper/ReGFLoW.pdf#page=8" target="_blank" rel="noopener">Paper Table 3 ↗</a></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="analysis" aria-labelledby="analysis-title">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">06 / Understanding the evidence</p><h2 id="analysis-title">What makes it work—and what scales?</h2><p>Image-level detection, module ablations, and source-domain diversity provide complementary evidence for reconstruction-guided weak supervision.</p></div>
+        <article class="result-block" id="table-4" aria-labelledby="table-4-title">
+          <div class="result-heading"><div><p class="eyebrow">Table 4 / Image-level detection</p><h3 id="table-4-title">Localization evidence helps detection, too.</h3></div><span class="setting-badge">F1 / Accuracy ↑</span></div>
+          <p>By combining high-response regions with a global image embedding, ReGFLoW achieves <strong>76.22 OOD F1 and 80.93 OOD accuracy</strong>—the highest averages among the evaluated detectors.</p>
+          <!-- GENERATED:TABLE_4:START -->
+<div class="table-shell" role="region" tabindex="0" aria-label="Table 4. Scroll horizontally to see every column.">
+<table class="results-table table-wide" data-table="4" data-source-page="9">
+<caption>Table 4. Image-level detection: F1 and accuracy</caption>
+<thead><tr><th class="method-col" scope="col" rowspan="3">Method</th><th colspan="2" scope="colgroup">In-domain</th><th colspan="8" scope="colgroup" class="group-start">Cross-domain</th><th colspan="4" scope="colgroup" class="group-start">Average</th></tr><tr><th scope="colgroup" colspan="2" class="">SD1.5</th><th scope="colgroup" colspan="2" class="group-start">SD2.1</th><th scope="colgroup" colspan="2" class="">SDXL</th><th scope="colgroup" colspan="2" class="">SD3</th><th scope="colgroup" colspan="2" class="">Flux.1</th><th scope="colgroup" colspan="2" class="group-start average-col">Avg.</th><th scope="colgroup" colspan="2" class="average-col ood-col">OOD Avg.</th></tr><tr><th scope="col" class="">F1</th><th scope="col" class="">ACC</th><th scope="col" class="group-start">F1</th><th scope="col" class="">ACC</th><th scope="col" class="">F1</th><th scope="col" class="">ACC</th><th scope="col" class="">F1</th><th scope="col" class="">ACC</th><th scope="col" class="">F1</th><th scope="col" class="">ACC</th><th scope="col" class="group-start average-col">F1</th><th scope="col" class="average-col">ACC</th><th scope="col" class="average-col ood-col">F1</th><th scope="col" class="average-col ood-col">ACC</th></tr></thead>
+<tbody>
+<tr class="" data-method="CNNDet"><th scope="row" class="method-col">CNNDet<a class="method-ref" href="./static/paper/ReGFLoW.pdf#page=13" target="_blank" rel="noopener" aria-label="Reference 54 in the paper">[54]</a></th>
+<td class="">84.60</td>
+<td class="">85.04</td>
+<td class="group-start">71.56</td>
+<td class="">75.94</td>
+<td class="">59.70</td>
+<td class="">68.72</td>
+<td class="">56.27</td>
+<td class="">67.08</td>
+<td class="">35.72</td>
+<td class="">57.57</td>
+<td class="group-start average-col">61.57</td>
+<td class="average-col">70.87</td>
+<td class="average-col ood-col">55.81</td>
+<td class="average-col ood-col">67.33</td>
+</tr>
+<tr class="" data-method="GramNet"><th scope="row" class="method-col">GramNet<a class="method-ref" href="./static/paper/ReGFLoW.pdf#page=13" target="_blank" rel="noopener" aria-label="Reference 55 in the paper">[55]</a></th>
+<td class="">80.51</td>
+<td class="">80.35</td>
+<td class="group-start">74.01</td>
+<td class="">76.66</td>
+<td class="">65.28</td>
+<td class="">70.76</td>
+<td class="">64.35</td>
+<td class="">70.29</td>
+<td class="">52.00</td>
+<td class="">63.37</td>
+<td class="group-start average-col">67.23</td>
+<td class="average-col">72.29</td>
+<td class="average-col ood-col">63.91</td>
+<td class="average-col ood-col">70.27</td>
+</tr>
+<tr class="" data-method="FreqNet"><th scope="row" class="method-col">FreqNet<a class="method-ref" href="./static/paper/ReGFLoW.pdf#page=13" target="_blank" rel="noopener" aria-label="Reference 56 in the paper">[56]</a></th>
+<td class="">75.88</td>
+<td class="">77.70</td>
+<td class="group-start">60.97</td>
+<td class="">68.37</td>
+<td class="">53.15</td>
+<td class="">64.02</td>
+<td class="">53.50</td>
+<td class="">64.37</td>
+<td class="">38.47</td>
+<td class="">57.08</td>
+<td class="group-start average-col">56.39</td>
+<td class="average-col">66.31</td>
+<td class="average-col ood-col">51.52</td>
+<td class="average-col ood-col">63.46</td>
+</tr>
+<tr class="" data-method="NPR"><th scope="row" class="method-col">NPR<a class="method-ref" href="./static/paper/ReGFLoW.pdf#page=14" target="_blank" rel="noopener" aria-label="Reference 57 in the paper">[57]</a></th>
+<td class="">79.41</td>
+<td class="">79.28</td>
+<td class="group-start">81.67</td>
+<td class="">81.84</td>
+<td class="">72.12</td>
+<td class="">74.28</td>
+<td class="">73.43</td>
+<td class="">75.47</td>
+<td class=""><strong>67.62</strong></td>
+<td class=""><strong>71.36</strong></td>
+<td class="group-start average-col">74.85</td>
+<td class="average-col">76.45</td>
+<td class="average-col ood-col">73.71</td>
+<td class="average-col ood-col">75.74</td>
+</tr>
+<tr class="" data-method="TruFor"><th scope="row" class="method-col">TruFor<a class="method-ref" href="./static/paper/ReGFLoW.pdf#page=12" target="_blank" rel="noopener" aria-label="Reference 19 in the paper">[19]</a></th>
+<td class="">90.12</td>
+<td class=""><strong>97.73</strong></td>
+<td class="group-start">35.93</td>
+<td class="">55.62</td>
+<td class="">58.04</td>
+<td class="">66.41</td>
+<td class="">59.73</td>
+<td class="">67.51</td>
+<td class="">49.12</td>
+<td class="">61.62</td>
+<td class="group-start average-col">58.59</td>
+<td class="average-col">69.78</td>
+<td class="average-col ood-col">50.70</td>
+<td class="average-col ood-col">62.79</td>
+</tr>
+<tr class="" data-method="IML-ViT"><th scope="row" class="method-col">IML-ViT<a class="method-ref" href="./static/paper/ReGFLoW.pdf#page=11" target="_blank" rel="noopener" aria-label="Reference 18 in the paper">[18]</a></th>
+<td class=""><strong>94.47</strong></td>
+<td class="">75.73</td>
+<td class="group-start">69.70</td>
+<td class="">61.19</td>
+<td class="">40.98</td>
+<td class="">49.95</td>
+<td class="">44.69</td>
+<td class="">51.25</td>
+<td class="">18.20</td>
+<td class="">43.62</td>
+<td class="group-start average-col">53.61</td>
+<td class="average-col">56.35</td>
+<td class="average-col ood-col">43.39</td>
+<td class="average-col ood-col">51.50</td>
+</tr>
+<tr class="" data-method="MaskCLIP"><th scope="row" class="method-col">MaskCLIP<a class="method-ref" href="./static/paper/ReGFLoW.pdf#page=11" target="_blank" rel="noopener" aria-label="Reference 9 in the paper">[9]</a></th>
+<td class="">91.28</td>
+<td class="">91.47</td>
+<td class="group-start">83.36</td>
+<td class="">85.28</td>
+<td class="">72.90</td>
+<td class="">77.98</td>
+<td class="">67.79</td>
+<td class="">74.95</td>
+<td class="">53.08</td>
+<td class="">67.12</td>
+<td class="group-start average-col">73.68</td>
+<td class="average-col">79.36</td>
+<td class="average-col ood-col">69.28</td>
+<td class="average-col ood-col">76.33</td>
+</tr>
+<tr class="ours-row" data-method="ReGFLoW"><th scope="row" class="method-col">ReGFLoW<span class="ours-tag">(Ours)</span></th>
+<td class="">93.02</td>
+<td class="">93.08</td>
+<td class="group-start"><strong>91.34</strong></td>
+<td class=""><strong>91.73</strong></td>
+<td class=""><strong>79.89</strong></td>
+<td class=""><strong>82.63</strong></td>
+<td class=""><strong>76.87</strong></td>
+<td class=""><strong>80.62</strong></td>
+<td class="">56.78</td>
+<td class="">68.76</td>
+<td class="group-start average-col"><strong>79.58</strong></td>
+<td class="average-col"><strong>83.36</strong></td>
+<td class="average-col ood-col"><strong>76.22</strong></td>
+<td class="average-col ood-col"><strong>80.93</strong></td>
+</tr>
+</tbody></table></div>
+<!-- GENERATED:TABLE_4:END -->
+          <div class="table-footer"><span>Numeric values and reference numbers follow the paper. The original “Approach” grouping is omitted here; ReGFLoW is trained with image-level labels only (Section 4.1).</span><a href="./static/paper/ReGFLoW.pdf#page=9" target="_blank" rel="noopener">Paper Table 4 ↗</a></div>
+        </article>
+        <article class="result-block" id="table-5" aria-labelledby="table-5-title">
+          <div class="result-heading"><div><p class="eyebrow">Table 5 / Ablation study</p><h3 id="table-5-title">Both the prior and the learning objective matter.</h3></div><span class="setting-badge">Pixel-level F1 ↑</span></div>
+          <p>Removing the reconstruction logit bias lowers F1 from 49.38 to 46.06. Removing the reconstruction prior entirely lowers it to 38.08; score-pooling BCE yields 32.34. The full design combines feature guidance, score guidance, and artifact-centric MIL.</p>
+          <!-- GENERATED:TABLE_5:START -->
+<div class="table-shell" role="region" tabindex="0" aria-label="Table 5. Scroll horizontally to see every column.">
+<table class="results-table table-ablation" data-table="5" data-source-page="9">
+<caption>Table 5. Ablation study: pixel-level F1</caption>
+<thead><tr><th scope="col" class="method-col">Method</th><th scope="col" class="">Bias<br>Predictor</th><th scope="col" class="">Feature-aligned<br>Fusion</th><th scope="col" class="">Artifact-Centric<br>MIL</th><th scope="col" class="">Pixel F1</th></tr></thead>
+<tbody>
+<tr class="ours-row" data-method="ReGFLoW"><th scope="row" class="method-col">ReGFLoW<span class="ours-tag">(Ours)</span></th>
+<td class=""><span class="check-yes" aria-label="enabled">✓</span></td>
+<td class=""><span class="check-yes" aria-label="enabled">✓</span></td>
+<td class=""><span class="check-yes" aria-label="enabled">✓</span></td>
+<td class=""><strong>49.38</strong></td>
+</tr>
+<tr class="" data-method="w/o Bias Predictor"><th scope="row" class="method-col">w/o Bias Predictor</th>
+<td class=""><span class="check-no" aria-label="disabled">×</span></td>
+<td class=""><span class="check-yes" aria-label="enabled">✓</span></td>
+<td class=""><span class="check-yes" aria-label="enabled">✓</span></td>
+<td class="">46.06</td>
+</tr>
+<tr class="" data-method="w/o Reconstruction Prior"><th scope="row" class="method-col">w/o Reconstruction Prior</th>
+<td class=""><span class="check-no" aria-label="disabled">×</span></td>
+<td class=""><span class="check-no" aria-label="disabled">×</span></td>
+<td class=""><span class="check-yes" aria-label="enabled">✓</span></td>
+<td class="">38.08</td>
+</tr>
+<tr class="" data-method="Score-Pooling BCE"><th scope="row" class="method-col">Score-Pooling BCE</th>
+<td class=""><span class="check-no" aria-label="disabled">×</span></td>
+<td class=""><span class="check-no" aria-label="disabled">×</span></td>
+<td class=""><span class="check-no" aria-label="disabled">×</span></td>
+<td class="">32.34</td>
+</tr>
+</tbody></table></div>
+<!-- GENERATED:TABLE_5:END -->
+          <div class="table-footer"><span>Values retain the precision reported in this ablation. They are not substituted for the differently reported Table 1 values.</span><a href="./static/paper/ReGFLoW.pdf#page=9" target="_blank" rel="noopener">Paper Table 5 ↗</a></div>
+        </article>
+        <article class="result-block" id="table-6" aria-labelledby="table-6-title">
+          <div class="result-heading"><div><p class="eyebrow">Table 6 / Broader training domains</p><h3 id="table-6-title">Broader sources. Not just more images.</h3></div><span class="setting-badge">Fixed training-set size</span></div>
+          <p>Adding one source domain to SD1.5 improves mean F1 on the remaining unseen domains while holding the total training size fixed. Weak supervision can therefore support broader-source training without requiring pixel masks from every source.</p>
+          <!-- GENERATED:TABLE_6:START -->
+<div class="table-shell" role="region" tabindex="0" aria-label="Table 6. Scroll horizontally to see every column.">
+<table class="results-table table-domain" data-table="6" data-source-page="9">
+<caption>Table 6. Source-domain diversity at fixed total training size</caption>
+<thead><tr><th scope="col" class="method-col">Train</th><th scope="col" class="">SD2</th><th scope="col" class="">SD3</th><th scope="col" class="">SDXL</th><th scope="col" class="">FLUX</th><th scope="col" class="">Avg. Δ</th></tr></thead>
+<tbody>
+<tr class="" data-method="SD1.5"><th scope="row" class="method-col">SD1.5</th>
+<td class="">40.96</td>
+<td class="">38.09</td>
+<td class="">29.36</td>
+<td class="">24.12</td>
+<td class="">–</td>
+</tr>
+<tr class="" data-method="+ SD2"><th scope="row" class="method-col">+ SD2</th>
+<td class="">–</td>
+<td class="">42.34<span class="delta-positive">(+4.25)</span></td>
+<td class="">33.73<span class="delta-positive">(+4.37)</span></td>
+<td class="">28.71<span class="delta-positive">(+4.60)</span></td>
+<td class="">+4.40</td>
+</tr>
+<tr class="" data-method="+ SD3"><th scope="row" class="method-col">+ SD3</th>
+<td class="">42.75<span class="delta-positive">(+1.79)</span></td>
+<td class="">–</td>
+<td class="">34.48<span class="delta-positive">(+5.12)</span></td>
+<td class="">30.96<span class="delta-positive">(+6.84)</span></td>
+<td class="">+4.58</td>
+</tr>
+<tr class="" data-method="+ SDXL"><th scope="row" class="method-col">+ SDXL</th>
+<td class="">40.88<span class="delta-negative">(-0.08)</span></td>
+<td class="">41.84<span class="delta-positive">(+3.75)</span></td>
+<td class="">–</td>
+<td class="">31.00<span class="delta-positive">(+6.88)</span></td>
+<td class="">+3.52</td>
+</tr>
+<tr class="" data-method="+ FLUX"><th scope="row" class="method-col">+ FLUX</th>
+<td class="">41.57<span class="delta-positive">(+0.61)</span></td>
+<td class="">43.82<span class="delta-positive">(+5.73)</span></td>
+<td class="">34.47<span class="delta-positive">(+5.11)</span></td>
+<td class="">–</td>
+<td class="">+3.82</td>
+</tr>
+</tbody></table></div>
+<!-- GENERATED:TABLE_6:END -->
+          <div class="table-footer"><span>“–” excludes a domain used for training. Parentheses show changes from the SD1.5-only row. Reported Avg. Δ values and source domain names are preserved without recomputation.</span><a href="./static/paper/ReGFLoW.pdf#page=9" target="_blank" rel="noopener">Paper Table 6 ↗</a></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-tint" id="robustness" aria-labelledby="robustness-title">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">07 / Robustness</p><h2 id="robustness-title">Beyond pristine images.</h2><p>ReGFLoW degrades gradually under stronger Gaussian blur and remains competitive under JPEG compression on SD3 and SDXL.</p></div>
+        <figure class="paper-figure" id="figure-5"><a class="figure-link" href="./static/images/fig5-robustness.png" data-lightbox data-caption="Figure 5 · Gaussian blur and JPEG compression on SD3 and SDXL. Baseline curves were digitized from OpenSDI, as stated in the paper."><img src="./static/images/fig5-robustness.webp" width="4200" height="1260" alt="Figure 5: four line plots compare pixel F1 under Gaussian blur and JPEG compression on SD3 and SDXL." loading="lazy" decoding="async"><span class="zoom-hint">View plots at full resolution ↗</span></a><figcaption><span class="fig-label">Figure 5</span> <strong>Robustness to image degradations.</strong> Baseline curves are digitized from the robustness results reported in OpenSDI; ReGFLoW is evaluated under the same degradation settings. <a class="source-link" href="./static/paper/ReGFLoW.pdf#page=10" target="_blank" rel="noopener">Paper, p. 10 ↗</a></figcaption></figure>
+      </div>
+    </section>
+
+    <section class="section" id="qualitative" aria-labelledby="qualitative-title">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">08 / Qualitative results</p><h2 id="qualitative-title">Look for artifacts.<br>Not just object-shaped regions.</h2><p>Out-of-domain comparisons include both boundary-aligned edits and boundary-unaligned changes—background edits, partial object changes, and multiple manipulated regions.</p></div>
+        
+        <figure class="paper-figure qualitative-figure qualitative-compact" id="figure-6"><a class="figure-link" href="./static/images/fig6-qualitative.png" data-lightbox data-caption="Figure 6 · Out-of-domain localization for boundary-aligned and boundary-unaligned edits."><img src="./static/images/fig6-qualitative.webp" width="3061" height="1686" alt="Figure 6: inputs, benchmark ground-truth masks, MaskCLIP, TruFor, and ReGFLoW predictions for boundary-aligned and boundary-unaligned edits." loading="lazy" decoding="async"><span class="zoom-hint">Inspect the comparisons ↗</span></a><figcaption><span class="fig-label">Figure 6</span> <strong>Localization when boundaries offer limited guidance.</strong> MaskCLIP and TruFor are fully supervised; ReGFLoW is weakly supervised. The GT row shows the benchmark masks used for evaluation. <a class="source-link" href="./static/paper/ReGFLoW.pdf#page=10" target="_blank" rel="noopener">Paper, p. 10 ↗</a></figcaption></figure>
+        <p class="context-note">These qualitative examples illustrate the paper’s hypothesis. They do not establish a universally correct ground-truth map of every diffusion trace outside an intended edit mask.</p>
+      </div>
+    </section>
+
+    <section class="section appendix-section" id="appendix-note" aria-labelledby="appendix-title">
+      <div class="container narrow"><div class="section-heading compact"><p class="eyebrow">09 / Appendix</p><h2 id="appendix-title">The paper PDF also includes an appendix.</h2><p>Beyond the main paper, the appendix discusses why pixel masks are hard to scale in real diffusion-editing settings, details the auxiliary losses and inference calibration, provides implementation details, summarizes assets and licenses, shows additional qualitative results, and discusses limitations and related work.</p><a class="source-link" href="./static/paper/ReGFLoW.pdf#page=15" target="_blank" rel="noopener">Appendix in the PDF ↗</a></div></div>
+    </section>
+
+    <section class="section takeaway-section" id="takeaway" aria-labelledby="takeaway-title">
+      <div class="container"><div class="takeaway-panel"><p class="eyebrow">10 / The larger takeaway</p><h2 id="takeaway-title">Before asking for more supervision,<br>ask whether it is the <em>right</em> supervision.</h2><p>The best choice depends on the task, the data, and what the labels actually represent. A dense label can be precise about the intended edit while remaining incomplete about the artifacts a detector should learn.</p><p>Diffusion-edited localization offers a concrete case study: weak supervision is not merely a cheaper substitute for pixel masks. With an appropriate artifact-centric formulation, it can be a better route to generalization.</p><div class="takeaway-rule"></div><p class="takeaway-signature">Sometimes, less supervision<br><strong>can lead to better generalization.</strong></p><p class="takeaway-scope">A task-dependent lesson—not a claim that weak supervision always wins.</p></div></div>
+    </section>
+
+    <section class="section citation-section" id="citation" aria-labelledby="citation-title">
+      <div class="container narrow"><div class="section-heading compact"><p class="eyebrow">11 / Citation</p><h2 id="citation-title">Build on this work.</h2><p>Use the citation below. Update the archive or publication fields when the final public links are available.</p></div><div class="citation-box"><div class="citation-toolbar"><span>BibTeX</span><button class="copy-button" data-copy="bibtex-code" hidden>Copy citation</button></div><!-- GENERATED:BIBTEX:START -->
+<pre><code id="bibtex-code">@misc{lee2026less,
+  title  = {Less Supervision, Better Generalization: Weakly Supervised Fake Region Localization in Diffusion-Edited Images},
+  author = {Junhee Lee and Donghyeon Jeon and Taeoh Kim and Beomyoung Kim and MyeongAh Cho},
+  year   = {2026},
+  note   = {Manuscript}
+}</code></pre>
+<!-- GENERATED:BIBTEX:END --></div><p class="copy-feedback" id="copy-feedback" role="status" aria-live="polite"></p></div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-inner"><div><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">L</span><span class="brand-title">Less Supervision, Better Generalization</span></a><!-- GENERATED:FOOTER:START -->
+<p>© 2026 ReGFLoW authors.</p>
+<!-- GENERATED:FOOTER:END --></div><p>Project-page structure inspired by <a href="https://github.com/VisualScienceLab-KHU/RefineVAD-project" target="_blank" rel="noopener">RefineVAD</a> and <a href="https://github.com/nerfies/nerfies.github.io" target="_blank" rel="noopener">Nerfies</a>.<br>Figures and results are from the accompanying manuscript.</p><a class="back-top" href="#top">Back to top ↑</a></div></footer>
+  <dialog class="lightbox" id="figure-dialog" aria-labelledby="dialog-caption"><div class="lightbox-toolbar"><span>Paper figure</span><button type="button" id="close-dialog" autofocus aria-label="Close enlarged figure">Close ×</button></div><div class="lightbox-image-wrap"><img id="dialog-image" alt="Enlarged paper figure"></div><div class="lightbox-bottom"><p id="dialog-caption"></p><a id="dialog-original" target="_blank" rel="noopener">Open original ↗</a></div></dialog>
+</body>
+</html>
