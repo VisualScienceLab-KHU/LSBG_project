@@ -1,0 +1,27 @@
+# Delivery archives are not part of the published site.
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+
+# OS / editor / Python temporary files
+.DS_Store
+Thumbs.db
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.log
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+preview-*.png
+
+# Do not store secrets in the website project.
+.env
+.env.*
+*.pem
+*.key
+.ssh/

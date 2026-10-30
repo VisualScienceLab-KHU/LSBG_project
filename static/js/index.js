@@ -24,10 +24,16 @@
     if (progress) progress.style.transform = `scaleX(${fraction})`;
     ticking = false;
   };
-  const scheduleProgress = () => {if (!ticking) {requestAnimationFrame(updateProgress); ticking = true;}};
+  const scheduleProgress = () => {if (!ticking) {ticking = true; requestAnimationFrame(updateProgress);}};
   window.addEventListener('scroll', scheduleProgress, {passive: true});
   window.addEventListener('resize', scheduleProgress, {passive: true});
   window.addEventListener('load', scheduleProgress);
+  // Recalculate when disclosures or responsive content change the page height.
+  document.querySelectorAll('details').forEach(detail => detail.addEventListener('toggle', scheduleProgress));
+  if ('ResizeObserver' in window) {
+    const progressObserver = new ResizeObserver(scheduleProgress);
+    progressObserver.observe(document.body);
+  }
   updateProgress();
 
   const navItems = nav ? Array.from(nav.querySelectorAll('a[href^="#"]')) : [];
@@ -43,6 +49,21 @@
     }, {rootMargin: '-15% 0px -65% 0px', threshold: 0});
     sections.forEach(section => observer.observe(section));
   }
+
+  const revealAnchor = () => {
+    let id;
+    try { id = decodeURIComponent(window.location.hash.slice(1)); } catch (_) { return; }
+    const target = document.getElementById(id);
+    if (!target) return;
+    let node = target;
+    while (node) {
+      if (node.tagName === 'DETAILS') node.open = true;
+      node = node.parentElement;
+    }
+    requestAnimationFrame(() => target.scrollIntoView({block: 'start'}));
+  };
+  window.addEventListener('hashchange', revealAnchor);
+  if (window.location.hash) window.addEventListener('load', revealAnchor, {once: true});
 
   const dialog = document.getElementById('figure-dialog');
   const modalImage = document.getElementById('dialog-image');
