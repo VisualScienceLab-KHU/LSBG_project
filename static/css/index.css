@@ -249,3 +249,74 @@ body.dialog-open{overflow:hidden}
  .reading-progress,.site-header,.menu-toggle,.resource-links,.lightbox,.copy-button{display:none!important}
  .section{padding:20px 0}.container{width:100%}.table-shell{overflow:visible}.results-table .method-col{position:static}
 }
+/* Main text readability */
+body {
+  font-size: 18px;
+  line-height: 1.72;
+}
+
+.section-heading > p:not(.eyebrow),
+.context-card > p:not(.step-label),
+.novelty-banner p,
+.method-card p,
+.result-block > p,
+.result-block > .baseline-note,
+.detail-body > p,
+.appendix-row p,
+.takeaway-panel p:last-child,
+.protocol-note {
+  font-size: 18px;
+  line-height: 1.75;
+}
+
+/* Figure 6 */
+.qualitative-figure {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+}
+
+.qualitative-figure .figure-link {
+  padding: 6px;
+}
+
+.qualitative-figure .figure-link img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Tablet and mobile */
+@media (max-width: 900px) {
+  .qualitative-figure .figure-link {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .qualitative-figure .figure-link img {
+    width: 1050px;
+    min-width: 1050px;
+    max-width: none;
+    height: auto;
+  }
+}
+
+@media (max-width: 700px) {
+  body {
+    font-size: 17px;
+  }
+
+  .section-heading > p:not(.eyebrow),
+  .context-card > p:not(.step-label),
+  .novelty-banner p,
+  .method-card p,
+  .result-block > p,
+  .result-block > .baseline-note,
+  .detail-body > p,
+  .appendix-row p,
+  .takeaway-panel p:last-child,
+  .protocol-note {
+    font-size: 17px;
+    line-height: 1.7;
+  }
+}
