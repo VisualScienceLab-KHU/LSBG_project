@@ -21,8 +21,7 @@
   const anchors = navItems.map(link => ({
     link,
     target: document.getElementById(link.hash.slice(1))
-  })).filter(anchor => anchor.target).reverse();
-  let activeLink;
+  })).filter(anchor => anchor.target);
   let ticking = false;
   const updateScrollState = () => {
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
@@ -31,13 +30,20 @@
     // Use the same offset as native anchor navigation, including the mobile override.
     const anchorTop = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
     const atBottom = scrollable > 0 && window.scrollY >= scrollable - 1;
-    const current = atBottom ? anchors[0] : anchors.find(({target}) =>
-      target.getBoundingClientRect().top <= anchorTop + 1
-    );
-    if (activeLink !== current?.link) {
-      activeLink?.removeAttribute('aria-current');
-      activeLink = current?.link;
-      activeLink?.setAttribute('aria-current', 'location');
+    // The title area has no nav item, even if the URL still ends in #question.
+    let selected = null;
+    if (window.scrollY > 1) {
+      for (const {link, target} of anchors) {
+        if (!atBottom && target.getBoundingClientRect().top > anchorTop + 1) break;
+        selected = link;
+      }
+    }
+    for (const link of navItems) {
+      if (link === selected) {
+        if (link.getAttribute('aria-current') !== 'location') link.setAttribute('aria-current', 'location');
+      } else {
+        link.removeAttribute('aria-current');
+      }
     }
     ticking = false;
   };
@@ -45,6 +51,7 @@
   window.addEventListener('scroll', scheduleScrollUpdate, {passive: true});
   window.addEventListener('resize', scheduleScrollUpdate, {passive: true});
   window.addEventListener('load', scheduleScrollUpdate);
+  window.addEventListener('pageshow', scheduleScrollUpdate);
   // Recalculate when disclosures or responsive content change the page height.
   document.querySelectorAll('details').forEach(detail => detail.addEventListener('toggle', scheduleScrollUpdate));
   if ('ResizeObserver' in window) {
@@ -58,12 +65,15 @@
     try { id = decodeURIComponent(window.location.hash.slice(1)); } catch (_) { return; }
     const target = document.getElementById(id);
     if (!target) return;
-    let node = target;
-    while (node) {
-      if (node.tagName === 'DETAILS') node.open = true;
-      node = node.parentElement;
+    let expanded = false;
+    for (let node = target; node; node = node.parentElement) {
+      if (node.tagName === 'DETAILS' && !node.open) {
+        node.open = true;
+        expanded = true;
+      }
     }
-    requestAnimationFrame(() => target.scrollIntoView({block: 'start'}));
+    // Native fragment navigation already positions visible sections.
+    if (expanded) requestAnimationFrame(() => target.scrollIntoView({block: 'start'}));
   };
   window.addEventListener('hashchange', revealAnchor);
   if (window.location.hash) window.addEventListener('load', revealAnchor, {once: true});
