@@ -17,8 +17,8 @@
 <meta content="Taeoh Kim" name="citation_author"/>
 <meta content="Beomyoung Kim" name="citation_author"/>
 <meta content="MyeongAh Cho" name="citation_author"/>
-<link href="./static/css/index.css?v=compact-v2-20261026" rel="stylesheet"/>
-<script defer="" src="./static/js/index.js?v=compact-v2-20261026"></script>
+<link href="./static/css/index.css?v=lsbg-20261107" rel="stylesheet"/>
+<script defer="" src="./static/js/index.js?v=lsbg-20261107"></script>
 <link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3C/svg%3E" rel="icon" type="image/svg+xml"/></head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -42,7 +42,7 @@
 <div aria-label="Author affiliations" class="affiliations"><span><sup>1</sup>Kyung Hee University</span><span><sup>2</sup>NAVER Cloud</span></div>
 <p class="author-note">* Corresponding author</p>
 <p class="venue">NeurIPS 2026</p>
-<div class="resource-links"><a class="button button-primary" href="./static/paper/ReGFLoW.pdf" rel="noopener" target="_blank"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 2h8l5 5v15H5z"></path><path d="M13 2v6h5M8 12h7M8 16h7"></path></svg>Paper</a><a class="button" href="https://arxiv.org/abs/2609.36882" rel="noopener" target="_blank"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24"><path d="M14 3h7v7M21 3 10 14M10 3H3v18h18v-7"></path></svg>arXiv</a><a class="button" href="https://github.com/VisualScienceLab-KHU/LSBG" rel="noopener" target="_blank"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24"><path d="m8 5-6 7 6 7M16 5l6 7-6 7M14 3l-4 18"></path></svg>Code</a></div>
+<div class="resource-links"><a class="button button-primary" href="./static/paper/LSBG.pdf" rel="noopener" target="_blank"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24"><path d="M5 2h8l5 5v15H5z"></path><path d="M13 2v6h5M8 12h7M8 16h7"></path></svg>Paper</a><a class="button" href="https://arxiv.org/abs/2609.36882" rel="noopener" target="_blank"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24"><path d="M14 3h7v7M21 3 10 14M10 3H3v18h18v-7"></path></svg>arXiv</a><a class="button" href="https://github.com/VisualScienceLab-KHU/LSBG" rel="noopener" target="_blank"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24"><path d="m8 5-6 7 6 7M16 5l6 7-6 7M14 3l-4 18"></path></svg>Code</a></div>
 <p class="hero-tagline">Not just <em>how much</em> we supervise, but <strong>what our supervision teaches.</strong></p>
 </div>
 </section>
@@ -81,7 +81,7 @@
 <a class="figure-link" data-caption="Figure 2 · The intended edit region is not a complete map of diffusion artifacts." data-lightbox="" href="./static/images/fig2-mask-incompleteness.png">
 <img alt="Figure 2: guidance mask, VAE encoding and decoding, and boundary blending can produce traces outside the intended edit region." decoding="async" height="428" loading="lazy" src="./static/images/fig2-mask-incompleteness.webp" width="1462"/>
 </a>
-<figcaption><span class="fig-label">Figure 2.</span> <strong>An edit mask is not a complete artifact map.</strong> Latent processing and blending can leave traces outside the intended region. <a class="paper-link" href="./static/paper/ReGFLoW.pdf#page=4" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></figcaption>
+<figcaption><span class="fig-label">Figure 2.</span> <strong>An edit mask is not a complete artifact map.</strong> Latent processing and blending can leave traces outside the intended region. <a class="paper-link" href="./static/paper/LSBG.pdf#page=4" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></figcaption>
 </figure>
 <p class="insight-signature">Sometimes, less supervision can lead to <strong>better generalization.</strong></p>
 </div>
@@ -92,20 +92,20 @@
 <h2 id="formulation-title">A new weakly supervised formulation.</h2>
 <p><strong><span class="model-name">ReGFLoW</span> is the first weakly supervised framework for diffusion-edited fake region localization in generic visual content, to the best of our knowledge.</strong> Prior formulations for conventional manipulation or face-centric edits do not readily transfer to spatially diffuse, non-semantic artifacts.</p>
 </div>
-<figure class="paper-figure motivation-figure" id="figure-1"><a class="figure-link" data-caption="Figure 1 · From semantic-affinity expansion to reconstruction-guided artifact localization." data-lightbox="" href="./static/images/fig1-task-motivation.png"><img alt="Figure 1: conventional segmentation follows object boundaries, diffusion edits may not, and ReGFLoW instead uses a diffusion prior and artifact-centric MIL." decoding="async" height="635" loading="lazy" src="./static/images/fig1-task-motivation.webp" width="1812"/></a><figcaption><span class="fig-label">Figure 1.</span> <strong>Different targets need different spatial guidance.</strong> Object-based expansion can miss non-semantic diffusion edits. <a class="paper-link" href="./static/paper/ReGFLoW.pdf#page=2" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></figcaption></figure>
+<figure class="paper-figure motivation-figure" id="figure-1"><a class="figure-link" data-caption="Figure 1 · From semantic-affinity expansion to reconstruction-guided artifact localization." data-lightbox="" href="./static/images/fig1-task-motivation.png"><img alt="Figure 1: conventional segmentation follows object boundaries, diffusion edits may not, and ReGFLoW instead uses a diffusion prior and artifact-centric MIL." decoding="async" height="635" loading="lazy" src="./static/images/fig1-task-motivation.webp" width="1812"/></a><figcaption><span class="fig-label">Figure 1.</span> <strong>Different targets need different spatial guidance.</strong> Object-based expansion can miss non-semantic diffusion edits. <a class="paper-link" href="./static/paper/LSBG.pdf#page=2" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></figcaption></figure>
 </div>
 </section>
 <section aria-labelledby="method-title" class="section" id="method">
 <div class="container">
 <div class="section-heading"><h2 id="method-title">Meet <span class="model-name">ReGFLoW.</span></h2>
 <p>Reconstruction-Guided Fake Localization under Weak supervision: use diffusion reconstruction cues to learn localization from image-level real/fake labels.</p></div>
-<figure class="paper-figure framework-figure" id="figure-4"><a class="figure-link" data-caption="Figure 4 · The complete ReGFLoW framework." data-lightbox="" href="./static/images/fig4-framework.png"><img alt="Figure 4: frozen VAE reconstruction, global and local encoders, gated feature fusion, a reconstruction logit bias, artifact-centric MIL, and a localization-guided classifier." decoding="async" height="846" loading="lazy" src="./static/images/fig4-framework.webp" width="1477"/></a><figcaption><span class="fig-label">Figure 4.</span> <strong>Reconstruction-guided localization.</strong> The prior guides features and scores; artifact-centric MIL supplies weak supervision. <a class="paper-link" href="./static/paper/ReGFLoW.pdf#page=5" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></figcaption></figure>
+<figure class="paper-figure framework-figure" id="figure-4"><a class="figure-link" data-caption="Figure 4 · The complete ReGFLoW framework." data-lightbox="" href="./static/images/fig4-framework.png"><img alt="Figure 4: frozen VAE reconstruction, global and local encoders, gated feature fusion, a reconstruction logit bias, artifact-centric MIL, and a localization-guided classifier." decoding="async" height="846" loading="lazy" src="./static/images/fig4-framework.webp" width="1477"/></a><figcaption><span class="fig-label">Figure 4.</span> <strong>Reconstruction-guided localization.</strong> The prior guides features and scores; artifact-centric MIL supplies weak supervision. <a class="paper-link" href="./static/paper/LSBG.pdf#page=5" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></figcaption></figure>
 <div class="method-grid">
 <article class="method-card recon"><div class="step-heading"><span class="step-index">1</span><h3>Reconstruction prior</h3></div><p>A frozen diffusion VAE provides reconstruction error as spatial guidance.</p></article>
 <article class="method-card fusion"><div class="step-heading"><span class="step-index">2</span><h3>Feature and score guidance</h3></div><p>Gated fusion and a logit bias inject the prior into both feature and score spaces.</p></article>
 <article class="method-card mil"><div class="step-heading"><span class="step-index">3</span><h3>Artifact-centric MIL</h3></div><p>Aggregate suspicious patches and rank fake-image evidence above real-image evidence.</p></article>
 </div>
-<p class="method-paper-link"><a class="paper-link" href="./static/paper/ReGFLoW.pdf#page=5" rel="noopener" target="_blank">Full method and equations <span aria-hidden="true">↗</span></a></p>
+<p class="method-paper-link"><a class="paper-link" href="./static/paper/LSBG.pdf#page=5" rel="noopener" target="_blank">Full method and equations <span aria-hidden="true">↗</span></a></p>
 </div>
 </section>
 <section aria-labelledby="results-title" class="section section-tint" id="results">
@@ -122,16 +122,16 @@
 </div>
 <p class="protocol-note"><strong>P</strong>: partially edited images. <strong>P+F</strong>: partially edited and fully synthetic images. <strong>OOD Avg.</strong>: average over the four unseen generators.</p>
 <article aria-labelledby="table-1-title" class="result-block" id="table-1">
-<div class="result-heading"><h3 id="table-1-title">Table 1 · Cross-generator localization (P)</h3><a class="paper-link" href="./static/paper/ReGFLoW.pdf#page=7" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></div>
+<div class="result-heading"><h3 id="table-1-title">Table 1 · Cross-generator localization (P)</h3><a class="paper-link" href="./static/paper/LSBG.pdf#page=7" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></div>
 <p><strong>ReGFLoW achieves competitive out-of-domain localization</strong> with only image-level supervision: <strong>38.6 OOD average F1</strong>, surpassing most evaluated fully supervised baselines, and the best Flux.1 F1 (<strong>29.2</strong>).</p><p class="baseline-note"><strong>The weakly supervised baselines are adapted from other settings:</strong> WSCL and BoxPromptIML from conventional image manipulation, and DOLOS from face-centric diffusion deepfakes—not prior solutions to diffusion-edited localization in generic visual content.</p>
-<div aria-label="Table 1 F1 summary. Scroll horizontally for all generators." class="table-shell" role="region" tabindex="0"><table class="results-table table-f1" data-summary-for="1"><caption>Table 1. Pixel-level F1; full F1 and IoU results can be expanded below.</caption><thead><tr><th class="method-col" rowspan="2" scope="col">Method</th><th scope="colgroup">In-domain</th><th class="group-start" colspan="4" scope="colgroup">Cross-domain</th><th class="group-start" colspan="2" scope="colgroup">Average</th></tr><tr><th class="" scope="col">SD1.5</th><th class="group-start" scope="col">SD2.1</th><th class="" scope="col">SDXL</th><th class="" scope="col">SD3</th><th class="" scope="col">Flux.1</th><th class="group-start" scope="col">Avg.</th><th class="ood-col" scope="col">OOD Avg.</th></tr></thead><tbody><tr class="group-row"><th colspan="8">Fully supervised methods</th></tr><tr class="" data-method="PSCC-Net"><th class="method-col" scope="row">PSCC-Net<a aria-label="Reference 52 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=13" rel="noopener" target="_blank">[52]</a></th><td class="">64.2</td><td class="group-start">44.8</td><td class="">26.1</td><td class="">37.3</td><td class="">11.6</td><td class="group-start">36.8</td><td class="ood-col">29.9</td></tr><tr class="" data-method="TruFor"><th class="method-col" scope="row">TruFor<a aria-label="Reference 19 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=12" rel="noopener" target="_blank">[19]</a></th><td class="">71.0</td><td class="group-start">61.9</td><td class="">31.9</td><td class="">38.5</td><td class="">9.7</td><td class="group-start">42.6</td><td class="ood-col">35.5</td></tr><tr class="" data-method="IML-ViT"><th class="method-col" scope="row">IML-ViT<a aria-label="Reference 18 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=11" rel="noopener" target="_blank">[18]</a></th><td class="">73.6</td><td class="group-start">50.6</td><td class="">26.0</td><td class="">28.3</td><td class="">7.9</td><td class="group-start">37.3</td><td class="ood-col">28.2</td></tr><tr class="" data-method="MaskCLIP"><th class="method-col" scope="row">MaskCLIP<a aria-label="Reference 9 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=11" rel="noopener" target="_blank">[9]</a></th><td class=""><strong>75.8</strong></td><td class="group-start"><strong>63.2</strong></td><td class=""><strong>35.2</strong></td><td class=""><strong>49.8</strong></td><td class="">18.4</td><td class="group-start"><strong>48.5</strong></td><td class="ood-col"><strong>41.7</strong></td></tr><tr class="group-row"><th colspan="8">Weakly supervised methods</th></tr><tr class="" data-method="WSCL"><th class="method-col" scope="row">WSCL<a aria-label="Reference 21 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=12" rel="noopener" target="_blank">[21]</a></th><td class="">25.6</td><td class="group-start">25.9</td><td class="">26.0</td><td class="">25.4</td><td class="">25.3</td><td class="group-start">25.6</td><td class="ood-col">25.7</td></tr><tr class="" data-method="DOLOS"><th class="method-col" scope="row">DOLOS<a aria-label="Reference 22 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=12" rel="noopener" target="_blank">[22]</a></th><td class="">21.5</td><td class="group-start">19.1</td><td class="">19.8</td><td class="">20.3</td><td class="">19.2</td><td class="group-start">20.0</td><td class="ood-col">19.6</td></tr><tr class="" data-method="BoxPromptIML"><th class="method-col" scope="row">BoxPromptIML<a aria-label="Reference 44 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=13" rel="noopener" target="_blank">[44]</a></th><td class="">11.5</td><td class="group-start">10.9</td><td class="">10.9</td><td class="">13.8</td><td class="">10.3</td><td class="group-start">11.5</td><td class="ood-col">11.5</td></tr><tr class="ours-row" data-method="ReGFLoW"><th class="method-col" scope="row">ReGFLoW<span class="ours-tag">(Ours)</span></th><td class="">49.3</td><td class="group-start">46.3</td><td class="">34.9</td><td class="">43.9</td><td class=""><strong>29.2</strong></td><td class="group-start">40.7</td><td class="ood-col">38.6</td></tr></tbody></table></div>
+<div aria-label="Table 1 F1 summary. Scroll horizontally for all generators." class="table-shell" role="region" tabindex="0"><table class="results-table table-f1" data-summary-for="1"><caption>Table 1. Pixel-level F1; full F1 and IoU results can be expanded below.</caption><thead><tr><th class="method-col" rowspan="2" scope="col">Method</th><th scope="colgroup">In-domain</th><th class="group-start" colspan="4" scope="colgroup">Cross-domain</th><th class="group-start" colspan="2" scope="colgroup">Average</th></tr><tr><th class="" scope="col">SD1.5</th><th class="group-start" scope="col">SD2.1</th><th class="" scope="col">SDXL</th><th class="" scope="col">SD3</th><th class="" scope="col">Flux.1</th><th class="group-start" scope="col">Avg.</th><th class="ood-col" scope="col">OOD Avg.</th></tr></thead><tbody><tr class="group-row"><th colspan="8">Fully supervised methods</th></tr><tr class="" data-method="PSCC-Net"><th class="method-col" scope="row">PSCC-Net<a aria-label="Reference 52 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=13" rel="noopener" target="_blank">[52]</a></th><td class="">64.2</td><td class="group-start">44.8</td><td class="">26.1</td><td class="">37.3</td><td class="">11.6</td><td class="group-start">36.8</td><td class="ood-col">29.9</td></tr><tr class="" data-method="TruFor"><th class="method-col" scope="row">TruFor<a aria-label="Reference 19 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=12" rel="noopener" target="_blank">[19]</a></th><td class="">71.0</td><td class="group-start">61.9</td><td class="">31.9</td><td class="">38.5</td><td class="">9.7</td><td class="group-start">42.6</td><td class="ood-col">35.5</td></tr><tr class="" data-method="IML-ViT"><th class="method-col" scope="row">IML-ViT<a aria-label="Reference 18 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=12" rel="noopener" target="_blank">[18]</a></th><td class="">73.6</td><td class="group-start">50.6</td><td class="">26.0</td><td class="">28.3</td><td class="">7.9</td><td class="group-start">37.3</td><td class="ood-col">28.2</td></tr><tr class="" data-method="MaskCLIP"><th class="method-col" scope="row">MaskCLIP<a aria-label="Reference 9 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=11" rel="noopener" target="_blank">[9]</a></th><td class=""><strong>75.8</strong></td><td class="group-start"><strong>63.2</strong></td><td class=""><strong>35.2</strong></td><td class=""><strong>49.8</strong></td><td class="">18.4</td><td class="group-start"><strong>48.5</strong></td><td class="ood-col"><strong>41.7</strong></td></tr><tr class="group-row"><th colspan="8">Weakly supervised methods</th></tr><tr class="" data-method="WSCL"><th class="method-col" scope="row">WSCL<a aria-label="Reference 21 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=12" rel="noopener" target="_blank">[21]</a></th><td class="">25.6</td><td class="group-start">25.9</td><td class="">26.0</td><td class="">25.4</td><td class="">25.3</td><td class="group-start">25.6</td><td class="ood-col">25.7</td></tr><tr class="" data-method="DOLOS"><th class="method-col" scope="row">DOLOS<a aria-label="Reference 22 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=12" rel="noopener" target="_blank">[22]</a></th><td class="">21.5</td><td class="group-start">19.1</td><td class="">19.8</td><td class="">20.3</td><td class="">19.2</td><td class="group-start">20.0</td><td class="ood-col">19.6</td></tr><tr class="" data-method="BoxPromptIML"><th class="method-col" scope="row">BoxPromptIML<a aria-label="Reference 44 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=13" rel="noopener" target="_blank">[44]</a></th><td class="">11.5</td><td class="group-start">10.9</td><td class="">10.9</td><td class="">13.8</td><td class="">10.3</td><td class="group-start">11.5</td><td class="ood-col">11.5</td></tr><tr class="ours-row" data-method="ReGFLoW"><th class="method-col" scope="row">ReGFLoW<span class="ours-tag">(Ours)</span></th><td class="">49.3</td><td class="group-start">46.3</td><td class="">34.9</td><td class="">43.9</td><td class=""><strong>29.2</strong></td><td class="group-start">40.7</td><td class="ood-col">38.6</td></tr></tbody></table></div>
 <details class="table-detail"><summary>Full F1 / IoU comparison</summary><div class="detail-body"><div aria-label="Table 1. Scroll horizontally to see every column." class="table-shell" role="region" tabindex="0">
 <table class="results-table table-wide" data-source-page="7" data-table="1">
 <caption>Table 1. Partially edited images (P): pixel-level F1 and IoU</caption>
 <thead><tr><th class="method-col" rowspan="3" scope="col">Method</th><th colspan="2" scope="colgroup">In-domain</th><th class="group-start" colspan="8" scope="colgroup">Cross-domain</th><th class="group-start" colspan="4" scope="colgroup">Average</th></tr><tr><th class="" colspan="2" scope="colgroup">SD1.5</th><th class="group-start" colspan="2" scope="colgroup">SD2.1</th><th class="" colspan="2" scope="colgroup">SDXL</th><th class="" colspan="2" scope="colgroup">SD3</th><th class="" colspan="2" scope="colgroup">Flux.1</th><th class="group-start average-col" colspan="2" scope="colgroup">Avg.</th><th class="average-col ood-col" colspan="2" scope="colgroup">OOD Avg.</th></tr><tr><th class="" scope="col">F1</th><th class="" scope="col">IoU</th><th class="group-start" scope="col">F1</th><th class="" scope="col">IoU</th><th class="" scope="col">F1</th><th class="" scope="col">IoU</th><th class="" scope="col">F1</th><th class="" scope="col">IoU</th><th class="" scope="col">F1</th><th class="" scope="col">IoU</th><th class="group-start average-col" scope="col">F1</th><th class="average-col" scope="col">IoU</th><th class="average-col ood-col" scope="col">F1</th><th class="average-col ood-col" scope="col">IoU</th></tr></thead>
 <tbody>
 <tr class="group-row"><th colspan="15">Fully supervised methods</th></tr>
-<tr class="" data-method="PSCC-Net"><th class="method-col" scope="row">PSCC-Net<a aria-label="Reference 52 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=13" rel="noopener" target="_blank">[52]</a></th>
+<tr class="" data-method="PSCC-Net"><th class="method-col" scope="row">PSCC-Net<a aria-label="Reference 52 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=13" rel="noopener" target="_blank">[52]</a></th>
 <td class="">64.2</td>
 <td class="">54.7</td>
 <td class="group-start">44.8</td>
@@ -147,7 +147,7 @@
 <td class="average-col ood-col">29.9</td>
 <td class="average-col ood-col">23.5</td>
 </tr>
-<tr class="" data-method="TruFor"><th class="method-col" scope="row">TruFor<a aria-label="Reference 19 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=12" rel="noopener" target="_blank">[19]</a></th>
+<tr class="" data-method="TruFor"><th class="method-col" scope="row">TruFor<a aria-label="Reference 19 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=12" rel="noopener" target="_blank">[19]</a></th>
 <td class="">71.0</td>
 <td class="">63.4</td>
 <td class="group-start">61.9</td>
@@ -163,7 +163,7 @@
 <td class="average-col ood-col">35.5</td>
 <td class="average-col ood-col">30.3</td>
 </tr>
-<tr class="" data-method="IML-ViT"><th class="method-col" scope="row">IML-ViT<a aria-label="Reference 18 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=11" rel="noopener" target="_blank">[18]</a></th>
+<tr class="" data-method="IML-ViT"><th class="method-col" scope="row">IML-ViT<a aria-label="Reference 18 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=12" rel="noopener" target="_blank">[18]</a></th>
 <td class="">73.6</td>
 <td class="">66.5</td>
 <td class="group-start">50.6</td>
@@ -179,7 +179,7 @@
 <td class="average-col ood-col">28.2</td>
 <td class="average-col ood-col">24.0</td>
 </tr>
-<tr class="" data-method="MaskCLIP"><th class="method-col" scope="row">MaskCLIP<a aria-label="Reference 9 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=11" rel="noopener" target="_blank">[9]</a></th>
+<tr class="" data-method="MaskCLIP"><th class="method-col" scope="row">MaskCLIP<a aria-label="Reference 9 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=11" rel="noopener" target="_blank">[9]</a></th>
 <td class=""><strong>75.8</strong></td>
 <td class=""><strong>68.6</strong></td>
 <td class="group-start"><strong>63.2</strong></td>
@@ -196,7 +196,7 @@
 <td class="average-col ood-col"><strong>35.8</strong></td>
 </tr>
 <tr class="group-row"><th colspan="15">Weakly supervised methods</th></tr>
-<tr class="" data-method="WSCL"><th class="method-col" scope="row">WSCL<a aria-label="Reference 21 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=12" rel="noopener" target="_blank">[21]</a></th>
+<tr class="" data-method="WSCL"><th class="method-col" scope="row">WSCL<a aria-label="Reference 21 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=12" rel="noopener" target="_blank">[21]</a></th>
 <td class="">25.6</td>
 <td class="">16.7</td>
 <td class="group-start">25.9</td>
@@ -212,7 +212,7 @@
 <td class="average-col ood-col">25.7</td>
 <td class="average-col ood-col">16.7</td>
 </tr>
-<tr class="" data-method="DOLOS"><th class="method-col" scope="row">DOLOS<a aria-label="Reference 22 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=12" rel="noopener" target="_blank">[22]</a></th>
+<tr class="" data-method="DOLOS"><th class="method-col" scope="row">DOLOS<a aria-label="Reference 22 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=12" rel="noopener" target="_blank">[22]</a></th>
 <td class="">21.5</td>
 <td class="">13.4</td>
 <td class="group-start">19.1</td>
@@ -228,7 +228,7 @@
 <td class="average-col ood-col">19.6</td>
 <td class="average-col ood-col">12.2</td>
 </tr>
-<tr class="" data-method="BoxPromptIML"><th class="method-col" scope="row">BoxPromptIML<a aria-label="Reference 44 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=13" rel="noopener" target="_blank">[44]</a></th>
+<tr class="" data-method="BoxPromptIML"><th class="method-col" scope="row">BoxPromptIML<a aria-label="Reference 44 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=13" rel="noopener" target="_blank">[44]</a></th>
 <td class="">11.5</td>
 <td class="">7.0</td>
 <td class="group-start">10.9</td>
@@ -263,7 +263,7 @@
 </tbody></table></div></div></details>
 </article>
 <article aria-labelledby="table-2-title" class="result-block" id="table-2">
-<div class="result-heading"><h3 id="table-2-title">Table 2 · A realistic mixed setting (P+F)</h3><a class="paper-link" href="./static/paper/ReGFLoW.pdf#page=8" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></div>
+<div class="result-heading"><h3 id="table-2-title">Table 2 · A realistic mixed setting (P+F)</h3><a class="paper-link" href="./static/paper/LSBG.pdf#page=8" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></div>
 <p>Partially edited and fully synthetic images coexist in practice. In this more realistic P+F setting, <strong>ReGFLoW achieves the best OOD average F1 (31.3)</strong> among the evaluated methods, without pixel-level supervision or target-domain adaptation.</p>
 <div aria-label="Table 2. Scroll horizontally to see every column." class="table-shell" role="region" tabindex="0">
 <table class="results-table table-mid" data-source-page="8" data-table="2">
@@ -271,7 +271,7 @@
 <thead><tr><th class="method-col" rowspan="2" scope="col">Method</th><th colspan="1" scope="colgroup">In-domain</th><th class="group-start" colspan="4" scope="colgroup">Cross-domain</th><th class="group-start" colspan="2" scope="colgroup">Average</th></tr><tr><th class="" colspan="1" scope="col">SD1.5</th><th class="group-start" colspan="1" scope="col">SD2.1</th><th class="" colspan="1" scope="col">SDXL</th><th class="" colspan="1" scope="col">SD3</th><th class="" colspan="1" scope="col">Flux.1</th><th class="group-start average-col" colspan="1" scope="col">Avg.</th><th class="average-col ood-col" colspan="1" scope="col">OOD Avg.</th></tr></thead>
 <tbody>
 <tr class="group-row"><th colspan="8">Fully supervised methods</th></tr>
-<tr class="" data-method="TruFor"><th class="method-col" scope="row">TruFor<a aria-label="Reference 19 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=12" rel="noopener" target="_blank">[19]</a></th>
+<tr class="" data-method="TruFor"><th class="method-col" scope="row">TruFor<a aria-label="Reference 19 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=12" rel="noopener" target="_blank">[19]</a></th>
 <td class="">28.8</td>
 <td class="group-start">20.1</td>
 <td class="">15.9</td>
@@ -280,7 +280,7 @@
 <td class="group-start average-col">17.9</td>
 <td class="average-col ood-col">15.2</td>
 </tr>
-<tr class="" data-method="IML-ViT"><th class="method-col" scope="row">IML-ViT<a aria-label="Reference 18 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=11" rel="noopener" target="_blank">[18]</a></th>
+<tr class="" data-method="IML-ViT"><th class="method-col" scope="row">IML-ViT<a aria-label="Reference 18 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=12" rel="noopener" target="_blank">[18]</a></th>
 <td class="">30.2</td>
 <td class="group-start">24.7</td>
 <td class="">17.6</td>
@@ -289,7 +289,7 @@
 <td class="group-start average-col">18.7</td>
 <td class="average-col ood-col">15.9</td>
 </tr>
-<tr class="" data-method="MaskCLIP"><th class="method-col" scope="row">MaskCLIP<a aria-label="Reference 9 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=11" rel="noopener" target="_blank">[9]</a></th>
+<tr class="" data-method="MaskCLIP"><th class="method-col" scope="row">MaskCLIP<a aria-label="Reference 9 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=11" rel="noopener" target="_blank">[9]</a></th>
 <td class=""><strong>95.1</strong></td>
 <td class="group-start"><strong>73.2</strong></td>
 <td class="">20.8</td>
@@ -311,25 +311,25 @@
 </tbody></table></div>
 </article>
 <article aria-labelledby="table-3-title" class="result-block" id="table-3">
-<div class="result-heading"><h3 id="table-3-title">Table 3 · Cross-dataset localization</h3><a class="paper-link" href="./static/paper/ReGFLoW.pdf#page=8" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></div>
+<div class="result-heading"><h3 id="table-3-title">Table 3 · Cross-dataset localization</h3><a class="paper-link" href="./static/paper/LSBG.pdf#page=8" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></div>
 <p>ReGFLoW outperforms every evaluated fully supervised baseline across all three settings.</p>
 <div aria-label="Table 3. Scroll horizontally to see every column." class="table-shell" role="region" tabindex="0">
 <table class="results-table table-three" data-source-page="8" data-table="3">
 <caption>Table 3. Cross-dataset localization: pixel-level F1</caption>
-<thead><tr><th class="method-col" rowspan="2" scope="col">Method</th><th scope="colgroup">COCO-GLIDE<a aria-label="Reference 53 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=13" rel="noopener" target="_blank">[53]</a></th><th class="group-start" colspan="2" scope="colgroup">DOLOS<a aria-label="Reference 22 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=12" rel="noopener" target="_blank">[22]</a></th></tr><tr><th scope="col">P</th><th class="group-start" scope="col">P</th><th scope="col">P+F</th></tr></thead>
+<thead><tr><th class="method-col" rowspan="2" scope="col">Method</th><th scope="colgroup">COCO-GLIDE<a aria-label="Reference 53 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=13" rel="noopener" target="_blank">[53]</a></th><th class="group-start" colspan="2" scope="colgroup">DOLOS<a aria-label="Reference 22 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=12" rel="noopener" target="_blank">[22]</a></th></tr><tr><th scope="col">P</th><th class="group-start" scope="col">P</th><th scope="col">P+F</th></tr></thead>
 <tbody>
 <tr class="group-row"><th colspan="4">Fully supervised methods</th></tr>
-<tr class="" data-method="TruFor"><th class="method-col" scope="row">TruFor<a aria-label="Reference 19 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=12" rel="noopener" target="_blank">[19]</a></th>
+<tr class="" data-method="TruFor"><th class="method-col" scope="row">TruFor<a aria-label="Reference 19 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=12" rel="noopener" target="_blank">[19]</a></th>
 <td class="">25.17</td>
 <td class="group-start">8.21</td>
 <td class="">12.70</td>
 </tr>
-<tr class="" data-method="IML-ViT"><th class="method-col" scope="row">IML-ViT<a aria-label="Reference 18 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=11" rel="noopener" target="_blank">[18]</a></th>
+<tr class="" data-method="IML-ViT"><th class="method-col" scope="row">IML-ViT<a aria-label="Reference 18 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=12" rel="noopener" target="_blank">[18]</a></th>
 <td class="">15.23</td>
 <td class="group-start">1.16</td>
 <td class="">1.74</td>
 </tr>
-<tr class="" data-method="MaskCLIP"><th class="method-col" scope="row">MaskCLIP<a aria-label="Reference 9 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=11" rel="noopener" target="_blank">[9]</a></th>
+<tr class="" data-method="MaskCLIP"><th class="method-col" scope="row">MaskCLIP<a aria-label="Reference 9 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=11" rel="noopener" target="_blank">[9]</a></th>
 <td class="">8.34</td>
 <td class="group-start">13.35</td>
 <td class="">14.65</td>
@@ -347,9 +347,9 @@
 <section aria-labelledby="qualitative-title" class="section qualitative-section" id="qualitative">
 <div class="container">
 <div class="section-heading compact"><h2 id="qualitative-title">Look for artifacts.<br/>Not just object-shaped regions.</h2></div>
-<figure class="paper-figure qualitative-figure" id="figure-6"><a class="figure-link" data-caption="Figure 6 · Out-of-domain localization for boundary-aligned and boundary-unaligned edits." data-lightbox="" href="./static/images/fig6-qualitative.png"><img alt="Figure 6: inputs, benchmark ground-truth masks, MaskCLIP, TruFor, and ReGFLoW predictions for boundary-aligned and boundary-unaligned edits." decoding="async" height="1128" loading="lazy" src="./static/images/fig6-qualitative.webp" width="2048"/></a><figcaption><span class="fig-label">Figure 6.</span> <strong>Out-of-domain localization.</strong> Comparison with fully supervised MaskCLIP and TruFor on boundary-aligned and boundary-unaligned edits. <a class="paper-link" href="./static/paper/ReGFLoW.pdf#page=10" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></figcaption></figure>
+<figure class="paper-figure qualitative-figure" id="figure-6"><a class="figure-link" data-caption="Figure 6 · Out-of-domain localization for boundary-aligned and boundary-unaligned edits." data-lightbox="" href="./static/images/fig6-qualitative.png"><img alt="Figure 6: inputs, benchmark ground-truth masks, MaskCLIP, TruFor, and ReGFLoW predictions for boundary-aligned and boundary-unaligned edits." decoding="async" height="744" loading="lazy" src="./static/images/fig6-qualitative.webp" width="1372"/></a><figcaption><span class="fig-label">Figure 6.</span> <strong>Out-of-domain localization.</strong> Comparison with fully supervised MaskCLIP and TruFor on boundary-aligned and boundary-unaligned edits. <a class="paper-link" href="./static/paper/LSBG.pdf#page=10" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></figcaption></figure>
 <details class="experiment robustness-details" id="robustness"><summary><span>Robustness to image degradations <span class="summary-note">Figure 5</span></span></summary>
-<div class="detail-body"><figure class="paper-figure robustness-figure" id="figure-5"><a class="figure-link" data-caption="Figure 5 · Gaussian blur and JPEG compression on SD3 and SDXL. Baseline curves were digitized from OpenSDI, as stated in the paper." data-lightbox="" href="./static/images/fig5-robustness.png"><img alt="Figure 5: four line plots compare pixel F1 under Gaussian blur and JPEG compression on SD3 and SDXL." decoding="async" height="614" loading="lazy" src="./static/images/fig5-robustness.webp" width="2048"/></a><figcaption><span class="fig-label">Figure 5.</span> <strong>Robustness to blur and JPEG compression.</strong> Baseline curves are digitized from OpenSDI, as described in the paper. <a class="paper-link" href="./static/paper/ReGFLoW.pdf#page=10" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></figcaption></figure></div>
+<div class="detail-body"><figure class="paper-figure robustness-figure" id="figure-5"><a class="figure-link" data-caption="Figure 5 · Gaussian blur and JPEG compression on SD3 and SDXL. Baseline curves were digitized from OpenSDI, as stated in the paper." data-lightbox="" href="./static/images/fig5-robustness.png"><img alt="Figure 5: four line plots compare pixel F1 under Gaussian blur and JPEG compression on SD3 and SDXL." decoding="async" height="614" loading="lazy" src="./static/images/fig5-robustness.webp" width="2048"/></a><figcaption><span class="fig-label">Figure 5.</span> <strong>Robustness to blur and JPEG compression.</strong> The fully supervised baselines include CAT-Net, MVSS-Net, DeCLIP, and ObjectFormer. Their curves were digitized from OpenSDI. ReGFLoW retains the highest pixel F1 under the strongest blur on both SD3 and SDXL. <a class="paper-link" href="./static/paper/LSBG.pdf#page=10" rel="noopener" target="_blank">PDF <span aria-hidden="true">↗</span></a></figcaption></figure></div>
 </details></div>
 </section><section aria-labelledby="analysis-title" class="section additional-section" id="analysis">
 <div class="container">
@@ -361,7 +361,7 @@
 <caption>Table 4. Image-level detection: F1 and accuracy</caption>
 <thead><tr><th class="method-col" rowspan="3" scope="col">Method</th><th colspan="2" scope="colgroup">In-domain</th><th class="group-start" colspan="8" scope="colgroup">Cross-domain</th><th class="group-start" colspan="4" scope="colgroup">Average</th></tr><tr><th class="" colspan="2" scope="colgroup">SD1.5</th><th class="group-start" colspan="2" scope="colgroup">SD2.1</th><th class="" colspan="2" scope="colgroup">SDXL</th><th class="" colspan="2" scope="colgroup">SD3</th><th class="" colspan="2" scope="colgroup">Flux.1</th><th class="group-start average-col" colspan="2" scope="colgroup">Avg.</th><th class="average-col ood-col" colspan="2" scope="colgroup">OOD Avg.</th></tr><tr><th class="" scope="col">F1</th><th class="" scope="col">ACC</th><th class="group-start" scope="col">F1</th><th class="" scope="col">ACC</th><th class="" scope="col">F1</th><th class="" scope="col">ACC</th><th class="" scope="col">F1</th><th class="" scope="col">ACC</th><th class="" scope="col">F1</th><th class="" scope="col">ACC</th><th class="group-start average-col" scope="col">F1</th><th class="average-col" scope="col">ACC</th><th class="average-col ood-col" scope="col">F1</th><th class="average-col ood-col" scope="col">ACC</th></tr></thead>
 <tbody>
-<tr class="" data-method="CNNDet"><th class="method-col" scope="row">CNNDet<a aria-label="Reference 54 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=13" rel="noopener" target="_blank">[54]</a></th>
+<tr class="" data-method="CNNDet"><th class="method-col" scope="row">CNNDet<a aria-label="Reference 54 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=14" rel="noopener" target="_blank">[54]</a></th>
 <td class="">84.60</td>
 <td class="">85.04</td>
 <td class="group-start">71.56</td>
@@ -377,7 +377,7 @@
 <td class="average-col ood-col">55.81</td>
 <td class="average-col ood-col">67.33</td>
 </tr>
-<tr class="" data-method="GramNet"><th class="method-col" scope="row">GramNet<a aria-label="Reference 55 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=13" rel="noopener" target="_blank">[55]</a></th>
+<tr class="" data-method="GramNet"><th class="method-col" scope="row">GramNet<a aria-label="Reference 55 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=14" rel="noopener" target="_blank">[55]</a></th>
 <td class="">80.51</td>
 <td class="">80.35</td>
 <td class="group-start">74.01</td>
@@ -393,7 +393,7 @@
 <td class="average-col ood-col">63.91</td>
 <td class="average-col ood-col">70.27</td>
 </tr>
-<tr class="" data-method="FreqNet"><th class="method-col" scope="row">FreqNet<a aria-label="Reference 56 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=13" rel="noopener" target="_blank">[56]</a></th>
+<tr class="" data-method="FreqNet"><th class="method-col" scope="row">FreqNet<a aria-label="Reference 56 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=14" rel="noopener" target="_blank">[56]</a></th>
 <td class="">75.88</td>
 <td class="">77.70</td>
 <td class="group-start">60.97</td>
@@ -409,7 +409,7 @@
 <td class="average-col ood-col">51.52</td>
 <td class="average-col ood-col">63.46</td>
 </tr>
-<tr class="" data-method="NPR"><th class="method-col" scope="row">NPR<a aria-label="Reference 57 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=14" rel="noopener" target="_blank">[57]</a></th>
+<tr class="" data-method="NPR"><th class="method-col" scope="row">NPR<a aria-label="Reference 57 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=14" rel="noopener" target="_blank">[57]</a></th>
 <td class="">79.41</td>
 <td class="">79.28</td>
 <td class="group-start">81.67</td>
@@ -425,7 +425,7 @@
 <td class="average-col ood-col">73.71</td>
 <td class="average-col ood-col">75.74</td>
 </tr>
-<tr class="" data-method="TruFor"><th class="method-col" scope="row">TruFor<a aria-label="Reference 19 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=12" rel="noopener" target="_blank">[19]</a></th>
+<tr class="" data-method="TruFor"><th class="method-col" scope="row">TruFor<a aria-label="Reference 19 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=12" rel="noopener" target="_blank">[19]</a></th>
 <td class="">90.12</td>
 <td class=""><strong>97.73</strong></td>
 <td class="group-start">35.93</td>
@@ -441,7 +441,7 @@
 <td class="average-col ood-col">50.70</td>
 <td class="average-col ood-col">62.79</td>
 </tr>
-<tr class="" data-method="IML-ViT"><th class="method-col" scope="row">IML-ViT<a aria-label="Reference 18 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=11" rel="noopener" target="_blank">[18]</a></th>
+<tr class="" data-method="IML-ViT"><th class="method-col" scope="row">IML-ViT<a aria-label="Reference 18 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=12" rel="noopener" target="_blank">[18]</a></th>
 <td class=""><strong>94.47</strong></td>
 <td class="">75.73</td>
 <td class="group-start">69.70</td>
@@ -457,7 +457,7 @@
 <td class="average-col ood-col">43.39</td>
 <td class="average-col ood-col">51.50</td>
 </tr>
-<tr class="" data-method="MaskCLIP"><th class="method-col" scope="row">MaskCLIP<a aria-label="Reference 9 in the paper" class="method-ref" href="./static/paper/ReGFLoW.pdf#page=11" rel="noopener" target="_blank">[9]</a></th>
+<tr class="" data-method="MaskCLIP"><th class="method-col" scope="row">MaskCLIP<a aria-label="Reference 9 in the paper" class="method-ref" href="./static/paper/LSBG.pdf#page=11" rel="noopener" target="_blank">[9]</a></th>
 <td class="">91.28</td>
 <td class="">91.47</td>
 <td class="group-start">83.36</td>
@@ -489,7 +489,7 @@
 <td class="average-col ood-col"><strong>76.22</strong></td>
 <td class="average-col ood-col"><strong>80.93</strong></td>
 </tr>
-</tbody></table></div><p><a class="paper-link" href="./static/paper/ReGFLoW.pdf#page=9" rel="noopener" target="_blank">Table 4 in the paper <span aria-hidden="true">↗</span></a></p></div>
+</tbody></table></div><p><a class="paper-link" href="./static/paper/LSBG.pdf#page=9" rel="noopener" target="_blank">Table 4 in the paper <span aria-hidden="true">↗</span></a></p></div>
 </details>
 <details class="experiment" id="table-5"><summary><span>Ablation study <span class="summary-note">Table 5</span></span></summary>
 <div class="detail-body"><p>Both reconstruction-guided scoring and artifact-centric MIL contribute to localization.</p><div aria-label="Table 5. Scroll horizontally to see every column." class="table-shell" role="region" tabindex="0">
@@ -521,7 +521,7 @@
 <td class=""><span aria-label="disabled" class="check-no">×</span></td>
 <td class="">32.34</td>
 </tr>
-</tbody></table></div><p><a class="paper-link" href="./static/paper/ReGFLoW.pdf#page=9" rel="noopener" target="_blank">Table 5 in the paper <span aria-hidden="true">↗</span></a></p></div>
+</tbody></table></div><p><a class="paper-link" href="./static/paper/LSBG.pdf#page=9" rel="noopener" target="_blank">Table 5 in the paper <span aria-hidden="true">↗</span></a></p></div>
 </details>
 <details class="experiment" id="table-6"><summary><span>Broader training domains <span class="summary-note">Table 6</span></span></summary>
 <div class="detail-body"><p>Adding a source domain improves average F1 on remaining unseen domains at a fixed total training size. Parentheses show changes from the SD1.5-only setting; “–” excludes a training domain.</p><div aria-label="Table 6. Scroll horizontally to see every column." class="table-shell" role="region" tabindex="0">
@@ -564,8 +564,90 @@
 <td class="">–</td>
 <td class="">+3.82</td>
 </tr>
-</tbody></table></div><p><a class="paper-link" href="./static/paper/ReGFLoW.pdf#page=9" rel="noopener" target="_blank">Table 6 in the paper <span aria-hidden="true">↗</span></a></p></div>
+</tbody></table></div><p><a class="paper-link" href="./static/paper/LSBG.pdf#page=9" rel="noopener" target="_blank">Table 6 in the paper <span aria-hidden="true">↗</span></a></p></div>
 </details>
+<details class="experiment" id="table-8">
+<summary><span>Does weak supervision help on a matched backbone? <span class="summary-note">Appendix D · Table 8</span></span></summary>
+<div class="detail-body">
+<p>Each pair uses the same backbone and non-head components. The fully supervised variant learns a segmentation head from pixel masks. The weakly supervised variant learns a MIL head from image labels. Across the four unseen generators, mean F1 rises from 25.25 to 31.3 for ReGFLoW and falls from 29.1 to 28.5 for MaskCLIP. In both pairs, the weak variant scores higher on SDXL, SD3, and Flux.1.</p>
+<p><strong>OpenSDID · P+F · Pixel F1 (%)</strong></p>
+<div aria-label="Table 8. Scroll horizontally for all generators." class="table-shell" role="region" tabindex="0">
+<table class="results-table" data-source-page="20" data-table="8">
+<caption>Table 8. Does weak supervision help on a matched backbone? Pixel-level F1 (%) under P+F.</caption>
+<thead><tr><th class="method-col" scope="col">Method</th><th scope="col">Supervision</th><th scope="col">SD1.5</th><th scope="col">SD2.1</th><th scope="col">SDXL</th><th scope="col">SD3</th><th scope="col">Flux.1</th><th scope="col">OOD Avg.</th></tr></thead>
+<tbody>
+<tr><th class="method-col" scope="row">MaskCLIP</th><td>Full</td><td>95.1</td><td>73.2</td><td>20.8</td><td>17.7</td><td>4.8</td><td>29.1</td></tr>
+<tr><th class="method-col" scope="row">MaskCLIP-WS</th><td>Weak</td><td>43.6</td><td>34.9</td><td>28.9</td><td>29.4</td><td>20.7</td><td>28.5</td></tr>
+<tr><th class="method-col" scope="row">ReGFLoW-FS</th><td>Full</td><td>92.22</td><td>65.26</td><td>16.89</td><td>15.46</td><td>3.41</td><td>25.25</td></tr>
+<tr><th class="method-col" scope="row">ReGFLoW</th><td>Weak</td><td>35.6</td><td>33.4</td><td>30.1</td><td>32.2</td><td>29.4</td><td>31.3</td></tr>
+</tbody></table></div>
+<p><a class="paper-link" href="./static/paper/LSBG.pdf#page=20" rel="noopener" target="_blank">Table 8 in the paper <span aria-hidden="true">↗</span></a></p>
+</div></details>
+<details class="experiment" id="table-9">
+<summary><span>How well does the reconstruction residual localize edits on its own? <span class="summary-note">Appendix D · Table 9</span></span></summary>
+<div class="detail-body">
+<p>Both methods use the same per-image normalization and final threshold (0.5). Across the five generators, ReGFLoW gains 15.6–30.8 pixel F1 points over thresholding the SD1 VAE residual directly.</p>
+<p><strong>OpenSDID · P · Pixel F1 (%)</strong></p>
+<div aria-label="Table 9. Scroll horizontally for all generators." class="table-shell" role="region" tabindex="0">
+<table class="results-table" data-source-page="21" data-table="9">
+<caption>Table 9. How well does the reconstruction residual localize edits on its own? Pixel-level F1 (%) under P.</caption>
+<thead><tr><th class="method-col" scope="col">Method</th><th scope="col">SD1.5</th><th scope="col">SD2.1</th><th scope="col">SDXL</th><th scope="col">SD3</th><th scope="col">Flux.1</th></tr></thead>
+<tbody>
+<tr><th class="method-col" scope="row">Residual only</th><td>18.5</td><td>22.1</td><td>17.4</td><td>18.5</td><td>13.6</td></tr>
+<tr><th class="method-col" scope="row">ReGFLoW</th><td>49.3</td><td>46.3</td><td>34.9</td><td>43.9</td><td>29.2</td></tr>
+</tbody></table></div>
+<p><a class="paper-link" href="./static/paper/LSBG.pdf#page=21" rel="noopener" target="_blank">Table 9 in the paper <span aria-hidden="true">↗</span></a></p>
+</div></details>
+<details class="experiment" id="table-10">
+<summary><span>What happens when the reconstruction prior changes? <span class="summary-note">Appendix D · Table 10</span></span></summary>
+<div class="detail-body">
+<p>At inference, replacing the default SD1 VAE residual with a DIRE-DDIM or SDXL VAE residual lowers pixel F1 by 1.4–3.3 points. Each run uses the same RGB input, checkpoint, and calibration.</p>
+<p><strong>OpenSDID · P · Pixel F1 (%)</strong></p>
+<div aria-label="Table 10. Scroll horizontally for all generators." class="table-shell" role="region" tabindex="0">
+<table class="results-table" data-source-page="21" data-table="10">
+<caption>Table 10. What happens when the reconstruction prior changes? Pixel-level F1 (%) under P.</caption>
+<thead><tr><th class="method-col" scope="col">Reconstruction prior</th><th scope="col">SD1.5</th><th scope="col">SD2.1</th><th scope="col">SDXL</th><th scope="col">SD3</th><th scope="col">Flux.1</th></tr></thead>
+<tbody>
+<tr><th class="method-col" scope="row">DIRE-DDIM</th><td>46.7</td><td>43.7</td><td>32.7</td><td>40.8</td><td>25.9</td></tr>
+<tr><th class="method-col" scope="row">SDXL VAE</th><td>47.0</td><td>43.4</td><td>33.5</td><td>41.3</td><td>26.2</td></tr>
+<tr><th class="method-col" scope="row">SD1 VAE (default)</th><td>49.3</td><td>46.3</td><td>34.9</td><td>43.9</td><td>29.2</td></tr>
+</tbody></table></div>
+<p><a class="paper-link" href="./static/paper/LSBG.pdf#page=21" rel="noopener" target="_blank">Table 10 in the paper <span aria-hidden="true">↗</span></a></p>
+</div></details>
+<details class="experiment" id="table-11">
+<summary><span>How does post-processing the edited image affect localization? <span class="summary-note">Appendix D · Table 11</span></span></summary>
+<div class="detail-body">
+<p>Here the edited image itself changes before inference. Halving its spatial resolution lowers pixel F1 by less than 0.8 points on every generator. Reconstructing it with an SDXL VAE lowers F1 by about 2.6–4.6 points.</p>
+<p><strong>OpenSDID · P · Pixel F1 (%)</strong></p>
+<div aria-label="Table 11. Scroll horizontally for all generators." class="table-shell" role="region" tabindex="0">
+<table class="results-table" data-source-page="21" data-table="11">
+<caption>Table 11. How does post-processing the edited image affect localization? Pixel-level F1 (%) under P.</caption>
+<thead><tr><th class="method-col" scope="col">Input condition</th><th scope="col">SD1.5</th><th scope="col">SD2.1</th><th scope="col">SDXL</th><th scope="col">SD3</th><th scope="col">Flux.1</th></tr></thead>
+<tbody>
+<tr><th class="method-col" scope="row">Clean</th><td>49.34</td><td>46.27</td><td>34.86</td><td>43.90</td><td>29.18</td></tr>
+<tr><th class="method-col" scope="row">Resize (0.5×)</th><td>48.8</td><td>45.5</td><td>34.5</td><td>43.3</td><td>28.7</td></tr>
+<tr><th class="method-col" scope="row">Edit-then-reconstruct</th><td>44.8</td><td>42.1</td><td>30.3</td><td>39.6</td><td>26.6</td></tr>
+</tbody></table></div>
+<p><a class="paper-link" href="./static/paper/LSBG.pdf#page=21" rel="noopener" target="_blank">Table 11 in the paper <span aria-hidden="true">↗</span></a></p>
+</div></details>
+<details class="experiment" id="table-12">
+<summary><span>How sensitive are the masks to the final decision threshold? <span class="summary-note">Appendix D · Table 12</span></span></summary>
+<div class="detail-body">
+<p>With the checkpoint and image-wise calibration fixed, varying the final threshold from 0.4 to 0.6 changes pixel F1 by at most 3.04 points within any generator. The reported evaluations use 0.5 across domains.</p>
+<p><strong>OpenSDID · P · Pixel F1 (%)</strong></p>
+<div aria-label="Table 12. Scroll horizontally for all generators." class="table-shell" role="region" tabindex="0">
+<table class="results-table" data-source-page="22" data-table="12">
+<caption>Table 12. How sensitive are the masks to the final decision threshold? Pixel-level F1 (%) under P.</caption>
+<thead><tr><th class="method-col" scope="col">Final threshold</th><th scope="col">SD1.5</th><th scope="col">SD2.1</th><th scope="col">SDXL</th><th scope="col">SD3</th><th scope="col">Flux.1</th></tr></thead>
+<tbody>
+<tr><th class="method-col" scope="row">0.4</th><td>48.20</td><td>45.68</td><td>35.82</td><td>43.42</td><td>30.18</td></tr>
+<tr><th class="method-col" scope="row">0.5 (default)</th><td>49.34</td><td>46.27</td><td>34.86</td><td>43.90</td><td>29.18</td></tr>
+<tr><th class="method-col" scope="row">0.6</th><td>49.34</td><td>45.63</td><td>32.78</td><td>43.17</td><td>27.26</td></tr>
+<tr><th class="method-col" scope="row">0.7</th><td>47.75</td><td>43.33</td><td>29.21</td><td>40.65</td><td>24.06</td></tr>
+<tr><th class="method-col" scope="row">0.8</th><td>43.40</td><td>38.01</td><td>23.07</td><td>34.97</td><td>18.86</td></tr>
+</tbody></table></div>
+<p><a class="paper-link" href="./static/paper/LSBG.pdf#page=22" rel="noopener" target="_blank">Table 12 in the paper <span aria-hidden="true">↗</span></a></p>
+</div></details>
 
 </div>
 </div>
@@ -579,7 +661,7 @@
 </section>
 <section aria-labelledby="appendix-title" class="section resources-section" id="appendix-note">
 <div class="container">
-<div class="appendix-row"><div><h3 id="appendix-title">Appendix</h3><p>Mask availability, training and inference details, additional qualitative results, limitations, and related work.</p></div><a class="paper-link" href="./static/paper/ReGFLoW.pdf#page=15" rel="noopener" target="_blank">Open appendix <span aria-hidden="true">↗</span></a></div>
+<div class="appendix-row"><div><h3 id="appendix-title">Appendix</h3><p>The appendix covers mask availability, training and calibration, the five localization studies in Appendix D, additional visual results, limitations, related work, and asset licenses.</p></div><a class="paper-link" href="./static/paper/LSBG.pdf#page=15" rel="noopener" target="_blank">Open appendix <span aria-hidden="true">↗</span></a></div>
 <details class="citation-details" id="citation"><summary>Citation / BibTeX</summary><div class="citation-box">
 <div class="citation-toolbar"><span>BibTeX</span><button class="copy-button" data-copy="bibtex-code" hidden="">Copy citation</button></div>
 <pre><code id="bibtex-code">@misc{lee2026less,

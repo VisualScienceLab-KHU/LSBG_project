@@ -17,38 +17,41 @@
   }
 
   const progress = document.getElementById('reading-progress');
+  const navItems = nav ? Array.from(nav.querySelectorAll('a[href^="#"]')) : [];
+  const anchors = navItems.map(link => ({
+    link,
+    target: document.getElementById(link.hash.slice(1))
+  })).filter(anchor => anchor.target).reverse();
+  let activeLink;
   let ticking = false;
-  const updateProgress = () => {
+  const updateScrollState = () => {
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
     const fraction = scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0;
     if (progress) progress.style.transform = `scaleX(${fraction})`;
+    // Use the same offset as native anchor navigation, including the mobile override.
+    const anchorTop = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+    const atBottom = scrollable > 0 && window.scrollY >= scrollable - 1;
+    const current = atBottom ? anchors[0] : anchors.find(({target}) =>
+      target.getBoundingClientRect().top <= anchorTop + 1
+    );
+    if (activeLink !== current?.link) {
+      activeLink?.removeAttribute('aria-current');
+      activeLink = current?.link;
+      activeLink?.setAttribute('aria-current', 'location');
+    }
     ticking = false;
   };
-  const scheduleProgress = () => {if (!ticking) {ticking = true; requestAnimationFrame(updateProgress);}};
-  window.addEventListener('scroll', scheduleProgress, {passive: true});
-  window.addEventListener('resize', scheduleProgress, {passive: true});
-  window.addEventListener('load', scheduleProgress);
+  const scheduleScrollUpdate = () => {if (!ticking) {ticking = true; requestAnimationFrame(updateScrollState);}};
+  window.addEventListener('scroll', scheduleScrollUpdate, {passive: true});
+  window.addEventListener('resize', scheduleScrollUpdate, {passive: true});
+  window.addEventListener('load', scheduleScrollUpdate);
   // Recalculate when disclosures or responsive content change the page height.
-  document.querySelectorAll('details').forEach(detail => detail.addEventListener('toggle', scheduleProgress));
+  document.querySelectorAll('details').forEach(detail => detail.addEventListener('toggle', scheduleScrollUpdate));
   if ('ResizeObserver' in window) {
-    const progressObserver = new ResizeObserver(scheduleProgress);
+    const progressObserver = new ResizeObserver(scheduleScrollUpdate);
     progressObserver.observe(document.body);
   }
-  updateProgress();
-
-  const navItems = nav ? Array.from(nav.querySelectorAll('a[href^="#"]')) : [];
-  const sections = navItems.map(a => document.getElementById(a.hash.slice(1))).filter(Boolean);
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) navItems.forEach(link => {
-          if (link.hash === `#${entry.target.id}`) link.setAttribute('aria-current','location');
-          else link.removeAttribute('aria-current');
-        });
-      });
-    }, {rootMargin: '-15% 0px -65% 0px', threshold: 0});
-    sections.forEach(section => observer.observe(section));
-  }
+  updateScrollState();
 
   const revealAnchor = () => {
     let id;
