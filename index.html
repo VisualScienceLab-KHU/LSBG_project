@@ -17,7 +17,7 @@
 <meta content="Taeoh Kim" name="citation_author"/>
 <meta content="Beomyoung Kim" name="citation_author"/>
 <meta content="MyeongAh Cho" name="citation_author"/>
-<link href="./static/css/index.css?v=7504714338" rel="stylesheet"/>
+<link href="./static/css/index.css?v=e48fc8dbe6" rel="stylesheet"/>
 <script defer="" src="./static/js/index.js?v=7729036261"></script>
 <link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3C/svg%3E" rel="icon" type="image/svg+xml"/></head>
 <body id="top">
@@ -353,7 +353,7 @@
 </details></div>
 </section><section aria-labelledby="analysis-title" class="section additional-section" id="analysis">
 <div class="container">
-<div class="section-heading compact"><h2 id="analysis-title">Additional experiments</h2><p>Expand an experiment, or follow its link to the paper.</p></div>
+<div class="section-heading compact"><h2 id="analysis-title">Additional experiments</h2><p>Expand Tables 4–6 below, or select an appendix experiment to open its section in the PDF.</p></div>
 <div class="experiment-list">
 <details class="experiment" id="table-4"><summary><span>Image-level detection <span class="summary-note">Table 4</span></span></summary>
 <div class="detail-body"><p>Artifact-focused localization evidence also supports image-level detection. ReGFLoW achieves 76.22 OOD average F1.</p><div aria-label="Table 4. Scroll horizontally to see every column." class="table-shell" role="region" tabindex="0">
@@ -566,89 +566,16 @@
 </tr>
 </tbody></table></div><p><a class="paper-link" href="./static/paper/LSBG.pdf#page=9" rel="noopener" target="_blank">Table 6 in the paper <span aria-hidden="true">↗</span></a></p></div>
 </details>
-<details class="experiment" id="table-8">
-<summary><span>Does weak supervision help on a matched backbone? <span class="summary-note">Appendix D · Table 8</span></span></summary>
-<div class="detail-body">
-<p>Each pair uses the same backbone and non-head components. The fully supervised variant learns a segmentation head from pixel masks. The weakly supervised variant learns a MIL head from image labels. Across the four unseen generators, mean F1 rises from 25.25 to 31.3 for ReGFLoW and falls from 29.1 to 28.5 for MaskCLIP. In both pairs, the weak variant scores higher on SDXL, SD3, and Flux.1.</p>
-<p><strong>OpenSDID · P+F · Pixel F1 (%)</strong></p>
-<div aria-label="Table 8. Scroll horizontally for all generators." class="table-shell" role="region" tabindex="0">
-<table class="results-table" data-source-page="20" data-table="8">
-<caption>Table 8. Does weak supervision help on a matched backbone? Pixel-level F1 (%) under P+F.</caption>
-<thead><tr><th class="method-col" scope="col">Method</th><th scope="col">Supervision</th><th scope="col">SD1.5</th><th scope="col">SD2.1</th><th scope="col">SDXL</th><th scope="col">SD3</th><th scope="col">Flux.1</th><th scope="col">OOD Avg.</th></tr></thead>
-<tbody>
-<tr><th class="method-col" scope="row">MaskCLIP</th><td>Full</td><td>95.1</td><td>73.2</td><td>20.8</td><td>17.7</td><td>4.8</td><td>29.1</td></tr>
-<tr><th class="method-col" scope="row">MaskCLIP-WS</th><td>Weak</td><td>43.6</td><td>34.9</td><td>28.9</td><td>29.4</td><td>20.7</td><td>28.5</td></tr>
-<tr><th class="method-col" scope="row">ReGFLoW-FS</th><td>Full</td><td>92.22</td><td>65.26</td><td>16.89</td><td>15.46</td><td>3.41</td><td>25.25</td></tr>
-<tr><th class="method-col" scope="row">ReGFLoW</th><td>Weak</td><td>35.6</td><td>33.4</td><td>30.1</td><td>32.2</td><td>29.4</td><td>31.3</td></tr>
-</tbody></table></div>
-<p><a class="paper-link" href="./static/paper/LSBG.pdf#page=20" rel="noopener" target="_blank">Table 8 in the paper <span aria-hidden="true">↗</span></a></p>
-</div></details>
-<details class="experiment" id="table-9">
-<summary><span>How well does the reconstruction residual localize edits on its own? <span class="summary-note">Appendix D · Table 9</span></span></summary>
-<div class="detail-body">
-<p>Both methods use the same per-image normalization and final threshold (0.5). Across the five generators, ReGFLoW gains 15.6–30.8 pixel F1 points over thresholding the SD1 VAE residual directly.</p>
-<p><strong>OpenSDID · P · Pixel F1 (%)</strong></p>
-<div aria-label="Table 9. Scroll horizontally for all generators." class="table-shell" role="region" tabindex="0">
-<table class="results-table" data-source-page="21" data-table="9">
-<caption>Table 9. How well does the reconstruction residual localize edits on its own? Pixel-level F1 (%) under P.</caption>
-<thead><tr><th class="method-col" scope="col">Method</th><th scope="col">SD1.5</th><th scope="col">SD2.1</th><th scope="col">SDXL</th><th scope="col">SD3</th><th scope="col">Flux.1</th></tr></thead>
-<tbody>
-<tr><th class="method-col" scope="row">Residual only</th><td>18.5</td><td>22.1</td><td>17.4</td><td>18.5</td><td>13.6</td></tr>
-<tr><th class="method-col" scope="row">ReGFLoW</th><td>49.3</td><td>46.3</td><td>34.9</td><td>43.9</td><td>29.2</td></tr>
-</tbody></table></div>
-<p><a class="paper-link" href="./static/paper/LSBG.pdf#page=21" rel="noopener" target="_blank">Table 9 in the paper <span aria-hidden="true">↗</span></a></p>
-</div></details>
-<details class="experiment" id="table-10">
-<summary><span>What happens when the reconstruction prior changes? <span class="summary-note">Appendix D · Table 10</span></span></summary>
-<div class="detail-body">
-<p>At inference, replacing the default SD1 VAE residual with a DIRE-DDIM or SDXL VAE residual lowers pixel F1 by 1.4–3.3 points. Each run uses the same RGB input, checkpoint, and calibration.</p>
-<p><strong>OpenSDID · P · Pixel F1 (%)</strong></p>
-<div aria-label="Table 10. Scroll horizontally for all generators." class="table-shell" role="region" tabindex="0">
-<table class="results-table" data-source-page="21" data-table="10">
-<caption>Table 10. What happens when the reconstruction prior changes? Pixel-level F1 (%) under P.</caption>
-<thead><tr><th class="method-col" scope="col">Reconstruction prior</th><th scope="col">SD1.5</th><th scope="col">SD2.1</th><th scope="col">SDXL</th><th scope="col">SD3</th><th scope="col">Flux.1</th></tr></thead>
-<tbody>
-<tr><th class="method-col" scope="row">DIRE-DDIM</th><td>46.7</td><td>43.7</td><td>32.7</td><td>40.8</td><td>25.9</td></tr>
-<tr><th class="method-col" scope="row">SDXL VAE</th><td>47.0</td><td>43.4</td><td>33.5</td><td>41.3</td><td>26.2</td></tr>
-<tr><th class="method-col" scope="row">SD1 VAE (default)</th><td>49.3</td><td>46.3</td><td>34.9</td><td>43.9</td><td>29.2</td></tr>
-</tbody></table></div>
-<p><a class="paper-link" href="./static/paper/LSBG.pdf#page=21" rel="noopener" target="_blank">Table 10 in the paper <span aria-hidden="true">↗</span></a></p>
-</div></details>
-<details class="experiment" id="table-11">
-<summary><span>How does post-processing the edited image affect localization? <span class="summary-note">Appendix D · Table 11</span></span></summary>
-<div class="detail-body">
-<p>Here the edited image itself changes before inference. Halving its spatial resolution lowers pixel F1 by less than 0.8 points on every generator. Reconstructing it with an SDXL VAE lowers F1 by about 2.6–4.6 points.</p>
-<p><strong>OpenSDID · P · Pixel F1 (%)</strong></p>
-<div aria-label="Table 11. Scroll horizontally for all generators." class="table-shell" role="region" tabindex="0">
-<table class="results-table" data-source-page="21" data-table="11">
-<caption>Table 11. How does post-processing the edited image affect localization? Pixel-level F1 (%) under P.</caption>
-<thead><tr><th class="method-col" scope="col">Input condition</th><th scope="col">SD1.5</th><th scope="col">SD2.1</th><th scope="col">SDXL</th><th scope="col">SD3</th><th scope="col">Flux.1</th></tr></thead>
-<tbody>
-<tr><th class="method-col" scope="row">Clean</th><td>49.34</td><td>46.27</td><td>34.86</td><td>43.90</td><td>29.18</td></tr>
-<tr><th class="method-col" scope="row">Resize (0.5×)</th><td>48.8</td><td>45.5</td><td>34.5</td><td>43.3</td><td>28.7</td></tr>
-<tr><th class="method-col" scope="row">Edit-then-reconstruct</th><td>44.8</td><td>42.1</td><td>30.3</td><td>39.6</td><td>26.6</td></tr>
-</tbody></table></div>
-<p><a class="paper-link" href="./static/paper/LSBG.pdf#page=21" rel="noopener" target="_blank">Table 11 in the paper <span aria-hidden="true">↗</span></a></p>
-</div></details>
-<details class="experiment" id="table-12">
-<summary><span>How sensitive are the masks to the final decision threshold? <span class="summary-note">Appendix D · Table 12</span></span></summary>
-<div class="detail-body">
-<p>With the checkpoint and image-wise calibration fixed, varying the final threshold from 0.4 to 0.6 changes pixel F1 by at most 3.04 points within any generator. The reported evaluations use 0.5 across domains.</p>
-<p><strong>OpenSDID · P · Pixel F1 (%)</strong></p>
-<div aria-label="Table 12. Scroll horizontally for all generators." class="table-shell" role="region" tabindex="0">
-<table class="results-table" data-source-page="22" data-table="12">
-<caption>Table 12. How sensitive are the masks to the final decision threshold? Pixel-level F1 (%) under P.</caption>
-<thead><tr><th class="method-col" scope="col">Final threshold</th><th scope="col">SD1.5</th><th scope="col">SD2.1</th><th scope="col">SDXL</th><th scope="col">SD3</th><th scope="col">Flux.1</th></tr></thead>
-<tbody>
-<tr><th class="method-col" scope="row">0.4</th><td>48.20</td><td>45.68</td><td>35.82</td><td>43.42</td><td>30.18</td></tr>
-<tr><th class="method-col" scope="row">0.5 (default)</th><td>49.34</td><td>46.27</td><td>34.86</td><td>43.90</td><td>29.18</td></tr>
-<tr><th class="method-col" scope="row">0.6</th><td>49.34</td><td>45.63</td><td>32.78</td><td>43.17</td><td>27.26</td></tr>
-<tr><th class="method-col" scope="row">0.7</th><td>47.75</td><td>43.33</td><td>29.21</td><td>40.65</td><td>24.06</td></tr>
-<tr><th class="method-col" scope="row">0.8</th><td>43.40</td><td>38.01</td><td>23.07</td><td>34.97</td><td>18.86</td></tr>
-</tbody></table></div>
-<p><a class="paper-link" href="./static/paper/LSBG.pdf#page=22" rel="noopener" target="_blank">Table 12 in the paper <span aria-hidden="true">↗</span></a></p>
-</div></details>
-
+</div>
+<div class="appendix-experiments">
+<h3>Appendix D · Additional quantitative analyses</h3>
+<ul>
+  <li id="table-8"><a href="./static/paper/LSBG.pdf#nameddest=subsection.D.1" rel="noopener" target="_blank">D.1 · Effect of supervision under matched backbones <span aria-hidden="true">↗</span></a></li>
+  <li id="table-9"><a href="./static/paper/LSBG.pdf#nameddest=subsection.D.2" rel="noopener" target="_blank">D.2 · Reconstruction-residual localization baseline <span aria-hidden="true">↗</span></a></li>
+  <li id="table-10"><a href="./static/paper/LSBG.pdf#nameddest=subsection.D.3" rel="noopener" target="_blank">D.3 · Robustness to alternative reconstruction priors <span aria-hidden="true">↗</span></a></li>
+  <li id="table-11"><a href="./static/paper/LSBG.pdf#nameddest=subsection.D.4" rel="noopener" target="_blank">D.4 · Robustness to resizing and input reconstruction <span aria-hidden="true">↗</span></a></li>
+  <li id="table-12"><a href="./static/paper/LSBG.pdf#nameddest=subsection.D.5" rel="noopener" target="_blank">D.5 · Sensitivity to the final decision threshold <span aria-hidden="true">↗</span></a></li>
+</ul>
 </div>
 </div>
 </section>

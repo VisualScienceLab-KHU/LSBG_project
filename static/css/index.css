@@ -174,6 +174,12 @@ details[open]>summary::after{content:'−'}
 .table-detail .detail-body{padding:8px 0 0}
 .additional-section{padding-bottom:16px}
 .experiment-list{border-top:1px solid var(--line)}
+.appendix-experiments{margin-top:20px}
+.appendix-experiments h3{font-size:18px}
+.appendix-experiments ul{list-style:none;margin:7px 0 0;padding:0}
+.appendix-experiments li{margin:0;padding:3px 0;font-size:16px;line-height:1.45}
+.appendix-experiments a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--line)}
+.appendix-experiments a:hover,.appendix-experiments a:focus-visible{text-decoration-color:currentColor}
 .experiment{border-bottom:1px solid var(--line)}
 .experiment>summary{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:11px 2px;font-size:17px;font-weight:600;line-height:1.5}
 .summary-note{font-size:14px;font-weight:400;color:#666;margin-left:13px;white-space:nowrap}
@@ -185,9 +191,9 @@ details[open]>summary::after{content:'−'}
 .robustness-details{margin-top:15px;border-top:1px solid var(--line)}
 /* Figure 6 preview. The lightbox uses the full-resolution image. */
 .qualitative-figure {
-  width: 53%;
-  min-width: min(90%, 320px);
-  max-width: 560px;
+  width: 75%;
+  min-width: min(95%, 340px);
+  max-width: 840px;
   margin: 0 auto;
 }
 .qualitative-figure .figure-link{padding:6px}
